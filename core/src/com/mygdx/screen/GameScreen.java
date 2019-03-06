@@ -153,6 +153,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 	        optionStage.draw();
 	        loadingStage.draw();
 	        deathStage.draw();
+	        highscoreStage.draw();
     	}
     }
     
@@ -247,6 +248,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 		optionStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		loadingStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		deathStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		highscoreStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 	}
 
 	@Override
