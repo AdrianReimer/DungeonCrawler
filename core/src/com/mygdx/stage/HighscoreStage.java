@@ -13,14 +13,16 @@ public class HighscoreStage extends Stage {
 	
     private boolean visible = false;
     private StageSwitchInterface stageSwitchInterface;
+    private GameSaveInterface gameSaveInterface;
 	
     /**
      * DeathStage constructor.
      * @param stageSwitchInterface | {@link StageSwitchInterface}.
      * @param soundInterface | {@link SoundInterface}.
      */
-	public HighscoreStage (final StageSwitchInterface stageSwitchInterface, final SoundInterface soundInterface) {
+	public HighscoreStage (final StageSwitchInterface stageSwitchInterface, final SoundInterface soundInterface, final GameSaveInterface gameSaveInterface) {
 		this.stageSwitchInterface = stageSwitchInterface;
+		this.gameSaveInterface = gameSaveInterface;
 		Skin skin = GameScreen.SKIN;
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
@@ -46,6 +48,10 @@ public class HighscoreStage extends Stage {
 			act(Gdx.graphics.getDeltaTime());
 			super.draw();
 		}
+	}
+	
+	private void loadHighscores () {
+		
 	}
 
 	public void setVisible(boolean visible) {

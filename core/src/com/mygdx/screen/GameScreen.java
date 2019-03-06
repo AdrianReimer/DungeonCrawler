@@ -124,7 +124,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     	optionStage = new OptionStage(this,gameStage.getSoundManager());
     	loadingStage = new LoadingStage(this,gameStage);
     	deathStage = new DeathStage(this,this);
-    	highscoreStage = new HighscoreStage(this,this);
+    	highscoreStage = new HighscoreStage(this,this,this);
     	// Shutdown Hook --> releases textures
     	Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
     	    @Override
