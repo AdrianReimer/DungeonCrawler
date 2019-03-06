@@ -33,5 +33,6 @@ public interface StageSwitchInterface {
     void switchToSaveStage(SpriteManager spriteManager, WorldManager worldManager);
     void switchToOptionStage(boolean lastStageWasMainMenu);
     void switchToLoadingStage(int monsterSpawnChance, int roomSpawnChance);
+    void switchToHighscoreStage();
     void switchToDeathStage();
 }

@@ -45,6 +45,7 @@ import com.mygdx.stage.DeathStage;
 import com.mygdx.stage.GameSaveInterface;
 import com.mygdx.stage.GameStage;
 import com.mygdx.stage.GameStageInterface;
+import com.mygdx.stage.HighscoreStage;
 import com.mygdx.stage.LoadStage;
 import com.mygdx.stage.LoadingStage;
 import com.mygdx.stage.MainMenuStage;
@@ -73,6 +74,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     private OptionStage optionStage; // -
     private LoadingStage loadingStage; // -
     private DeathStage deathStage; // -
+    private HighscoreStage highscoreStage;
     private ObjectMap<GameStageImages, Image> gameStageImageMap; // Assets (AssetManager if too much)
     private ObjectMap<Models, Texture> modelImageMap; // -
     private ObjectMap<Sounds, Sound> soundMap; // -
@@ -122,6 +124,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     	optionStage = new OptionStage(this,gameStage.getSoundManager());
     	loadingStage = new LoadingStage(this,gameStage);
     	deathStage = new DeathStage(this,this);
+    	highscoreStage = new HighscoreStage(this,this);
     	// Shutdown Hook --> releases textures
     	Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
     	    @Override
@@ -219,6 +222,12 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 		gameStage.getSoundManager().getSoundscape().stopBackgroundMusic();
 		deathStage.setVisible(true);
 		Gdx.input.setInputProcessor(deathStage);
+	}
+	
+	@Override
+	public void switchToHighscoreStage() {
+		highscoreStage.setVisible(true);
+		Gdx.input.setInputProcessor(highscoreStage);
 	}
 
     @Override
