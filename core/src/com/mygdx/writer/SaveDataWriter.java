@@ -94,4 +94,30 @@ public class SaveDataWriter {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void writeHighscoreSaveFile(String name, int gold, List<Highscore> highscoreList, String filepath) {
+		int highscoreNumber = 1;
+		JSONObject obj = new JSONObject();
+		// save current Player
+		JSONObject highscores = new JSONObject();
+		highscores.put("name", name);
+		highscores.put("gold", gold);
+		obj.put("Player"+highscoreNumber, highscores);
+		highscoreNumber++;
+		// add older highscores
+		for(Highscore highscore : highscoreList) {
+			highscores.put(highscore.getName(), name);
+			highscores.put(highscore.getGold(), gold);
+			obj.put("Player"+highscoreNumber, highscores);
+			highscoreNumber++;
+		}
+		// write file
+		try(FileWriter fw = new FileWriter(filepath)) {
+			fw.write(obj.toJSONString());
+			Gdx.app.log("SaveHighscores", "Successfully Copied JSON Object to File");
+		} catch (IOException e1) {
+			Gdx.app.log("SaveHighscores", "Error copying JSON Object to File",e1);
+		}
+	}
+	
 }
