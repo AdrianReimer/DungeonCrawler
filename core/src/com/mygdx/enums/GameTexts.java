@@ -45,6 +45,7 @@ public enum GameTexts {
 	MAIN_MENU_STAGE_PLAY_BUTTON("Play"),
 	MAIN_MENU_STAGE_LOAD_BUTTON("Load"),
 	MAIN_MENU_STAGE_OPTION_BUTTON("Options"),
+	MAIN_MENU_STAGE_HIGHSCORE_BUTTON("Highscores"),
 	MAIN_MENU_STAGE_EXIT_BUTTON("Exit"),
 	// ### LoadStage
 	// Label

@@ -93,6 +93,14 @@ public class MainMenuStage extends Stage {
 				stageSwitchInterface.switchToOptionStage(true);
 			}
 		});
+		TextButton highscoreButton = new TextButton(GameTexts.MAIN_MENU_STAGE_HIGHSCORE_BUTTON.get(), skin);
+		highscoreButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+				visible = false;
+				stageSwitchInterface.switchToHighscoreStage();
+			}
+		});
 		TextButton exitButton = new TextButton(GameTexts.MAIN_MENU_STAGE_EXIT_BUTTON.get(), skin);
 		exitButton.addListener(new ChangeListener() {
 			@Override
@@ -109,6 +117,8 @@ public class MainMenuStage extends Stage {
 		rootTable.add(loadButton).align(Align.bottomLeft);
 		rootTable.row();
 		rootTable.add(optionButton).align(Align.bottomLeft);
+		rootTable.row();
+		rootTable.add(highscoreButton).align(Align.bottomLeft);
 		rootTable.row();
 		rootTable.add(exitButton).align(Align.bottomLeft);
 		addActor(rootTable);

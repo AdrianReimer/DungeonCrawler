@@ -32,7 +32,8 @@ public enum GameSaves {
 	SAVE_DATA_2_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/save_data2.txt")),
 	SAVE_DATA_3_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/save_data3.txt")),
 	SAVE_DATA_4_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/save_data4.txt")),
-	SAVE_DATA_5_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/save_data5.txt"));
+	SAVE_DATA_5_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/save_data5.txt")),
+	HIGHSCORE_FILEPATH(Gdx.files.external(System.getProperty(GameScreen.USER_HOME)+"/Documents/DungeonGame/saves/highscores.txt"));
     
     private FileHandle filePath = null;
 

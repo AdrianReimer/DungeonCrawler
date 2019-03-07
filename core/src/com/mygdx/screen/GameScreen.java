@@ -52,6 +52,7 @@ import com.mygdx.stage.MainMenuStage;
 import com.mygdx.stage.OptionStage;
 import com.mygdx.stage.SaveStage;
 import com.mygdx.stage.StageSwitchInterface;
+import com.mygdx.writer.SaveDataWriter;
 
 /**
  * Screen the Dungeon Game runs in.
@@ -227,8 +228,19 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 	
 	@Override
 	public void switchToHighscoreStage() {
+		highscoreStage.updateHighscores();
 		highscoreStage.setVisible(true);
 		Gdx.input.setInputProcessor(highscoreStage);
+	}
+	
+	@Override
+	public void switchToHighscoreSave() {
+		highscoreStage.updateHighscores();
+		SaveDataWriter saveDataWriter = new SaveDataWriter();
+		saveDataWriter.writeHighscoreSaveFile(deathStage.getTextFieldString(), gameStage.getGold(), highscoreStage.getHighscoreList(),getPath(GameSaves.HIGHSCORE_FILEPATH));
+		deathStage.setVisible(false);
+		mainMenuStage.setVisible(true);
+		Gdx.input.setInputProcessor(mainMenuStage);
 	}
 
     @Override
