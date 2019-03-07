@@ -35,4 +35,5 @@ public interface StageSwitchInterface {
     void switchToLoadingStage(int monsterSpawnChance, int roomSpawnChance);
     void switchToHighscoreStage();
     void switchToDeathStage();
+    void switchToHighscoreSave();
 }
