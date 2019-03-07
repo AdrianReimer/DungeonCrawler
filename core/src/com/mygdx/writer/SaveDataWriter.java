@@ -94,20 +94,37 @@ public class SaveDataWriter {
 		}
 	}
 	
+	/**
+	 * writes a highscore data file for the Game.
+	 * @param name | name of the Player.
+	 * @param gold | amount of gold collected.
+	 * @param highscoreList | currently saved highscores.
+	 * @param filepath | save destination path.
+	 */
 	@SuppressWarnings("unchecked")
 	public void writeHighscoreSaveFile(String name, int gold, List<Highscore> highscoreList, String filepath) {
+		boolean highscoreIsAdded = false;
 		int highscoreNumber = 1;
 		JSONObject obj = new JSONObject();
-		// save current Player
-		JSONObject highscores = new JSONObject();
-		highscores.put("name", name);
-		highscores.put("gold", gold);
-		obj.put("Player"+highscoreNumber, highscores);
-		highscoreNumber++;
 		// add older highscores
 		for(Highscore highscore : highscoreList) {
-			highscores.put(highscore.getName(), name);
-			highscores.put(highscore.getGold(), gold);
+			JSONObject highscores = new JSONObject();
+			if(name.equals(highscore.getName())) {
+				// name already exists in List
+				highscoreIsAdded = true;
+				if(gold > highscore.getGold())
+					highscore.setGold(gold);
+			}
+			highscores.put("name", highscore.getName());
+			highscores.put("gold", highscore.getGold());
+			obj.put("Player"+highscoreNumber, highscores);
+			highscoreNumber++;
+		}
+		// save current Player
+		if(!highscoreIsAdded) {
+			JSONObject highscores = new JSONObject();
+			highscores.put("name", name);
+			highscores.put("gold", gold);
 			obj.put("Player"+highscoreNumber, highscores);
 			highscoreNumber++;
 		}
