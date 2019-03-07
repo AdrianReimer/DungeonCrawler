@@ -36,6 +36,8 @@ import com.mygdx.screen.GameScreen;
  */
 public class DeathStage extends Stage {
 	
+	private static final int MAX_NAME_LENGTH = 40;
+	
     private boolean visible = false;
     private TextField textField;
     private StageSwitchInterface stageSwitchInterface;
@@ -53,6 +55,7 @@ public class DeathStage extends Stage {
 		rootTable.setFillParent(true);
 		// add textfield for Highscore-list
 		textField = new TextField("", skin);
+		textField.setMaxLength(MAX_NAME_LENGTH);
 		textField.scaleBy(2);
 		// add label
 		Label label = new Label(GameTexts.DEATH_STAGE_LABEL.get(),skin);
@@ -66,8 +69,7 @@ public class DeathStage extends Stage {
 	@Override
 	public boolean keyDown(int keycode) {
 		if(keycode == Input.Keys.ENTER && textField.getText().length() > 0) {
-			visible = false;
-			stageSwitchInterface.switchToMainMenu(false);
+			stageSwitchInterface.switchToHighscoreSave();
 		}
 		return true;
 	}
@@ -83,5 +85,11 @@ public class DeathStage extends Stage {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+
+	public String getTextFieldString() {
+		return textField.getText();
+	}
+	
+	
 
 }
