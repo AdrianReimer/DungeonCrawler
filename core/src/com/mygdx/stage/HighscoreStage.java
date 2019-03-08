@@ -65,7 +65,7 @@ public class HighscoreStage extends Stage {
 			@Override
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
-				stageSwitchInterface.switchToMainMenu(false);
+				stageSwitchInterface.switchToMainMenu();
 			}
 		});
 		rootTable.add(label);
@@ -81,7 +81,7 @@ public class HighscoreStage extends Stage {
 	public boolean keyDown(int keycode) {
 		if(keycode == Input.Keys.ESCAPE ) {
 			visible = false;
-			stageSwitchInterface.switchToMainMenu(false);
+			stageSwitchInterface.switchToMainMenu();
 		}
 		return true;
 	}
