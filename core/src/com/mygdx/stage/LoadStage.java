@@ -174,7 +174,7 @@ public class LoadStage extends Stage{
 	private void escapeEvent() {
 		visible = false;
 		if(lastStageWasMainMenu)
-			stageSwitchInterface.switchToMainMenu(false);
+			stageSwitchInterface.switchToMainMenu();
 		else	
 			stageSwitchInterface.switchToGameStage(false);
 	}

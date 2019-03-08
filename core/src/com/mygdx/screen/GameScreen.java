@@ -181,9 +181,9 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     }
 
     @Override
-    public void switchToMainMenu(boolean hasCurrentLevel) {
+    public void switchToMainMenu() {
     	gameStage.getSoundManager().getSoundscape().stopBackgroundMusic();
-    	mainMenuStage.getResumeButton().setVisible(hasCurrentLevel);
+    	mainMenuStage.getResumeButton().setVisible(gameStage.getWorldManager().isUpdatingLevel());
     	mainMenuStage.setVisible(true);
         Gdx.input.setInputProcessor(mainMenuStage);
     }
@@ -239,8 +239,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 		SaveDataWriter saveDataWriter = new SaveDataWriter();
 		saveDataWriter.writeHighscoreSaveFile(deathStage.getTextFieldString(), gameStage.getGold(), highscoreStage.getHighscoreList(),getPath(GameSaves.HIGHSCORE_FILEPATH));
 		deathStage.setVisible(false);
-		mainMenuStage.setVisible(true);
-		Gdx.input.setInputProcessor(mainMenuStage);
+		switchToMainMenu();
 	}
 
     @Override

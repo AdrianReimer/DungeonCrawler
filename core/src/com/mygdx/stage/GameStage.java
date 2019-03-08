@@ -152,7 +152,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 			@Override
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
-				stageSwitchInterface.switchToMainMenu(true);
+				stageSwitchInterface.switchToMainMenu();
 			}
 		});
 		TextButton exitButton = new TextButton(GameTexts.GAME_STAGE_EXIT_BUTTON.get(), skin);
@@ -169,6 +169,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
 				deathTable.setVisible(false);
+				worldManager.setUpdatingLevel(false);
 				stageSwitchInterface.switchToDeathStage();
 			}
 		});
@@ -178,7 +179,8 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
 	    		deathTable.setVisible(false);
-				stageSwitchInterface.switchToMainMenu(false);
+	    		worldManager.setUpdatingLevel(false);
+				stageSwitchInterface.switchToMainMenu();
 			}
 		});
 		// Filling menu Table

@@ -30,6 +30,7 @@ import com.mygdx.model.Knight;
  */
 public class WorldManager implements Disposable {
 	
+	private boolean isUpdatingLevel;
 	private TiledMap tm;
 	private OrthogonalTiledMapRenderer tmr;
 	private Camera camera;
@@ -57,6 +58,7 @@ public class WorldManager implements Disposable {
 		if(tm == null || tmr == null) return;
 		tm.dispose();
 		tmr.dispose();
+		isUpdatingLevel = false;
 	}
 
 	public TiledMap getTiledMap() {
@@ -68,11 +70,21 @@ public class WorldManager implements Disposable {
 	}
 
 	public void setTiledMap(TiledMap tm) {
+		if(tm != null) 
+			isUpdatingLevel = true;
 		this.tm = tm;
 	}
 
 	public void setTiledMapRenderer(OrthogonalTiledMapRenderer tmr) {
 		this.tmr = tmr;
+	}
+
+	public boolean isUpdatingLevel() {
+		return isUpdatingLevel;
+	}
+
+	public void setUpdatingLevel(boolean isUpdatingLevel) {
+		this.isUpdatingLevel = isUpdatingLevel;
 	}
 	
 }

@@ -28,7 +28,7 @@ import com.mygdx.Manager.WorldManager;
  */
 public interface StageSwitchInterface {
     void switchToGameStage(boolean makeNewLevel);
-    void switchToMainMenu(boolean hasCurrentLevel);
+    void switchToMainMenu();
     void switchToLoadStage(SpriteManager spriteManager, WorldManager worldManager, boolean lastStageWasMainMenu);
     void switchToSaveStage(SpriteManager spriteManager, WorldManager worldManager);
     void switchToOptionStage(boolean lastStageWasMainMenu);
