@@ -61,10 +61,13 @@ public enum GameTexts {
 	// Label
 	LOADING_STAGE_LABEL("Loading..."),
 	// ### OptionStage
+	// Label
 	OPTION_STAGE_DISPLAY_SETTINGS_TEXT("\nDisplay Settings\n"),
 	OPTION_STAGE_GAME_SETTINGS_TEXT("\nGame Settings\n"),
 	OPTION_STAGE_SOUND_SETTINGS_TEXT("\nSound Volume\n"),
 	OPTION_STAGE_MUSIC_SETTINGS_TEXT("\nMusic Volume\n"),
+	// Button
+	OPTION_STAGE_BACK_BUTTON("Back"),
 	// ### GameStage
 	// Label
 	GAME_STAGE_DEFAULT_VALUE("?/?"),
@@ -77,7 +80,12 @@ public enum GameTexts {
 	GAME_STAGE_MAINMENU_BUTTON("MainMenu"),
 	GAME_STAGE_EXIT_BUTTON("Exit"),
 	GAME_STAGE_YES_BUTTON("Yes"),
-	GAME_STAGE_NO_BUTTON("No");
+	GAME_STAGE_NO_BUTTON("No"),
+	// ### HighscoreStage
+	// Label
+	HIGHSCORE_STAGE_LABEL("Top 10 Players\n\n"),
+	// Button
+	HIGHSCORE_STAGE_BACK_BUTTON("Back");
 	
 	
     private String text;
