@@ -77,7 +77,12 @@ public enum GameTexts {
 	GAME_STAGE_MAINMENU_BUTTON("MainMenu"),
 	GAME_STAGE_EXIT_BUTTON("Exit"),
 	GAME_STAGE_YES_BUTTON("Yes"),
-	GAME_STAGE_NO_BUTTON("No");
+	GAME_STAGE_NO_BUTTON("No"),
+	// ### HighscoreStage
+	// Label
+	HIGHSCORE_STAGE_LABEL("Top 10 Players\n\n"),
+	// Button
+	HIGHSCORE_STAGE_BACK_BUTTON("Back");
 	
 	
     private String text;
