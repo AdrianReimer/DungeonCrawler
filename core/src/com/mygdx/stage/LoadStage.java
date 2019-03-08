@@ -38,6 +38,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.SerializationException;
+import com.mygdx.Manager.EventManager;
 import com.mygdx.collision.Collision;
 import com.mygdx.constant.GameConstants;
 import com.mygdx.enums.Difficulty;
@@ -63,6 +64,7 @@ public class LoadStage extends Stage{
 	private TmxMapLoader loader = new TmxMapLoader();
 	private StageSwitchInterface stageSwitchInterface;
 	private ModelInterface modelInterface;
+	private EventManager eventManager;
 	private TiledMap tmMain;
 	private TextButton back;
 	private Label date1;
@@ -79,11 +81,12 @@ public class LoadStage extends Stage{
 	 * @param loadInterface | {@link LoadInterface}.
 	 * @param difficultyQueue | {@link Queue} of {@link Difficulty}s.
 	 */
-	public LoadStage(final StageSwitchInterface stageSwitchInterface,final SoundInterface soundInterface, final GameSaveInterface gameSaveInterface,final ModelInterface modelInterface, final LoadInterface loadInterface, Queue<Difficulty> difficultyQueue) {
+	public LoadStage(final StageSwitchInterface stageSwitchInterface,final SoundInterface soundInterface, final GameSaveInterface gameSaveInterface,final ModelInterface modelInterface, final LoadInterface loadInterface, EventManager eventManager, Queue<Difficulty> difficultyQueue) {
 		this.loadInterface = loadInterface;
 		this.difficultyQueue = difficultyQueue;
 		this.stageSwitchInterface = stageSwitchInterface;
 		this.modelInterface = modelInterface;
+		this.eventManager = eventManager;
 		Skin skin = GameScreen.SKIN;
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
@@ -207,6 +210,7 @@ public class LoadStage extends Stage{
 		loadInterface.getWorldManager().setTiledMap(tmMain);
 		loadInterface.getWorldManager().setTiledMapRenderer(new OrthogonalTiledMapRenderer(tmMain));	
 		loadSaveData(dataPath);
+		eventManager.setOnFinish(false);
 		visible = false;
 		stageSwitchInterface.switchToGameStage(false);
 	}

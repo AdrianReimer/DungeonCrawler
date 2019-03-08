@@ -29,7 +29,7 @@ import com.mygdx.Manager.WorldManager;
 public interface StageSwitchInterface {
     void switchToGameStage(boolean makeNewLevel);
     void switchToMainMenu();
-    void switchToLoadStage(SpriteManager spriteManager, WorldManager worldManager, boolean lastStageWasMainMenu);
+    void switchToLoadStage(boolean lastStageWasMainMenu);
     void switchToSaveStage(SpriteManager spriteManager, WorldManager worldManager);
     void switchToOptionStage(boolean lastStageWasMainMenu);
     void switchToLoadingStage(int monsterSpawnChance, int roomSpawnChance);
