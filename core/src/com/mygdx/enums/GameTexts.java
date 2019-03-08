@@ -61,10 +61,13 @@ public enum GameTexts {
 	// Label
 	LOADING_STAGE_LABEL("Loading..."),
 	// ### OptionStage
+	// Label
 	OPTION_STAGE_DISPLAY_SETTINGS_TEXT("\nDisplay Settings\n"),
 	OPTION_STAGE_GAME_SETTINGS_TEXT("\nGame Settings\n"),
 	OPTION_STAGE_SOUND_SETTINGS_TEXT("\nSound Volume\n"),
 	OPTION_STAGE_MUSIC_SETTINGS_TEXT("\nMusic Volume\n"),
+	// Button
+	OPTION_STAGE_BACK_BUTTON("Back"),
 	// ### GameStage
 	// Label
 	GAME_STAGE_DEFAULT_VALUE("?/?"),

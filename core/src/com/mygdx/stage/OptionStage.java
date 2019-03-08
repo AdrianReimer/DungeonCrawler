@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.Manager.SoundManager;
@@ -40,7 +41,7 @@ import com.mygdx.screen.GameScreen;
 public class OptionStage extends Stage {
 	
 	private static final float BOX_SPACE_BOTTOM = 20;
-	private static final float WINDOW_SPACE_BOTTOM = 40;
+	private static final float WINDOW_SPACE_BOTTOM = 30;
 	private static final float WINDOW_PAD = 50;
 	
     private boolean visible = false;
@@ -184,6 +185,14 @@ public class OptionStage extends Stage {
             	soundManager.getSoundscape().setSoundScapeMaster(soundScapeMasterSlider.getValue());
             }
         });
+		// Buttons
+		TextButton back = new TextButton(GameTexts.OPTION_STAGE_BACK_BUTTON.get(), skin);
+		back.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+				escapeEvent();
+			}
+		});
         
         displaySettingsWindow.add(windowModeSelectBox).spaceBottom(BOX_SPACE_BOTTOM);
         displaySettingsWindow.row();
@@ -199,6 +208,8 @@ public class OptionStage extends Stage {
         rootTable.add(soundSettingsWindow).spaceBottom(WINDOW_SPACE_BOTTOM);
         rootTable.row();
         rootTable.add(musicSettingsWindow).spaceBottom(WINDOW_SPACE_BOTTOM);
+        rootTable.row();
+        rootTable.add(back);
 		
 		addActor(rootTable);
 	}
@@ -206,13 +217,20 @@ public class OptionStage extends Stage {
 	@Override
 	public boolean keyDown(int keycode) {
 		if(keycode == Input.Keys.ESCAPE) {
-			visible = false;
-			if(lastStageWasMainMenu)
-				stageSwitchInterface.switchToMainMenu(false);
-			else	
-				stageSwitchInterface.switchToGameStage(false);
+			escapeEvent();
 		}
 		return true;
+	}
+	
+	/**
+	 * handles event when esc-key is pressed.
+	 */
+	private void escapeEvent() {
+		visible = false;
+		if(lastStageWasMainMenu)
+			stageSwitchInterface.switchToMainMenu(false);
+		else	
+			stageSwitchInterface.switchToGameStage(false);
 	}
 	
 	
