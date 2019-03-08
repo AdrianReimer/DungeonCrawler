@@ -121,7 +121,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
         gameStage = new GameStage(this,this,this,this);
     	mainMenuStage = new MainMenuStage(this,this,gameStage.getWorldManager(),gameStage.getSpriteManager());
     	saveStage = new SaveStage(this,this,this,gameStage,difficultyQueue);
-    	loadStage = new LoadStage(this,this,this,this,gameStage,difficultyQueue);
+    	loadStage = new LoadStage(this,this,this,this,gameStage,gameStage.getEventManager(),difficultyQueue);
     	optionStage = new OptionStage(this,gameStage.getSoundManager());
     	loadingStage = new LoadingStage(this,gameStage);
     	deathStage = new DeathStage(this,this);
@@ -189,7 +189,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     }
     
     @Override
-    public void switchToLoadStage(SpriteManager spriteManager, WorldManager worldManager, boolean lastStageWasMainMenu) {
+    public void switchToLoadStage(boolean lastStageWasMainMenu) {
     	loadStage.updateDates(this);
         loadStage.setVisible(true);
         loadStage.setLastStageWasMainMenu(lastStageWasMainMenu);

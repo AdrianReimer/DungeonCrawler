@@ -136,7 +136,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 			@Override
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
-				stageSwitchInterface.switchToLoadStage(spriteManager,worldManager,false);
+				stageSwitchInterface.switchToLoadStage(false);
 			}
 		});
 		TextButton optionButton = new TextButton(GameTexts.GAME_STAGE_OPTION_BUTTON.get(), skin);

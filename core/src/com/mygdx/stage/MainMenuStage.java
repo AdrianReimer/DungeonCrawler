@@ -82,7 +82,7 @@ public class MainMenuStage extends Stage {
 			@Override
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				visible = false;
-				stageSwitchInterface.switchToLoadStage(spriteManager, worldManager, true);
+				stageSwitchInterface.switchToLoadStage(true);
 			}
 		});
 		TextButton optionButton = new TextButton(GameTexts.MAIN_MENU_STAGE_OPTION_BUTTON.get(), skin);
