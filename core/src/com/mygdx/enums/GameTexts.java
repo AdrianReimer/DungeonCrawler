@@ -22,7 +22,7 @@ public enum GameTexts {
 	DEATH_STAGE_LABEL("*** You Died ***\n\nEnter your Name for the Highscore-List\n"),
 	// ### SaveStage
 	// Label
-	SAVE_STAGE_LABEL("**** Save your Game by Selecting a Slot ****\n\nSlot - Date\n\n\n"),
+	SAVE_STAGE_LABEL("**** Save your Game by Selecting a Slot ****\n\nSlot - Date\n\n\n\n"),
 	// Button
 	SAVE_STAGE_BUTTON1("SaveSpace1"),
 	SAVE_STAGE_BUTTON2("SaveSpace2"),
@@ -49,7 +49,7 @@ public enum GameTexts {
 	MAIN_MENU_STAGE_EXIT_BUTTON("Exit"),
 	// ### LoadStage
 	// Label
-	LOAD_STAGE_LABEL("**** Load your Game by Selecting a Slot ****\n\nSlot - Date\n\n\n"),
+	LOAD_STAGE_LABEL("**** Load your Game by Selecting a Slot ****\n\nSlot - Date\n\n\n\n"),
 	// Button
 	LOAD_STAGE_BUTTON1("LoadSpace1"),
 	LOAD_STAGE_BUTTON2("LoadSpace2"),

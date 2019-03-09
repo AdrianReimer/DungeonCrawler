@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Queue;
@@ -48,6 +49,8 @@ import com.mygdx.writer.SaveDataWriter;
 import com.mygdx.writer.TmxWriter;
 
 public class SaveStage extends Stage {
+	
+	private static final float WINDOW_SPACE_RIGHT = 50f;
 
 	private boolean visible = false;
 	private StageSwitchInterface stageSwitchInterface;
@@ -73,11 +76,8 @@ public class SaveStage extends Stage {
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
-		rootTable.align(Align.topLeft);
-
-		Label label = new Label(GameTexts.SAVE_STAGE_LABEL.get(),skin);
-		rootTable.add(label);
-		rootTable.row();
+		Window window = new Window(GameTexts.SAVE_STAGE_LABEL.get(), skin, GameConstants.DIALOG_WINDOW_STYLE);
+		window.setMovable(false);
 		
 		date1 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_1_FILEPATH)),skin);
 		date2 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_2_FILEPATH)),skin);
@@ -147,22 +147,23 @@ public class SaveStage extends Stage {
 				escapeEvent();
 			}
 		});
-		rootTable.add(saveSpace1).right();
-		rootTable.add(date1).align(Align.bottomLeft);
-		rootTable.row();
-		rootTable.add(saveSpace2).right();
-		rootTable.add(date2).align(Align.bottomLeft);
-		rootTable.row();
-		rootTable.add(saveSpace3).right();
-		rootTable.add(date3).align(Align.bottomLeft);
-		rootTable.row();
-		rootTable.add(saveSpace4).right();
-		rootTable.add(date4).align(Align.bottomLeft);
-		rootTable.row();
-		rootTable.add(saveSpace5).right();
-		rootTable.add(date5).align(Align.bottomLeft);
-		rootTable.row();
-		rootTable.add(back).align(Align.bottomLeft);
+		window.add(saveSpace1).spaceRight(WINDOW_SPACE_RIGHT);
+		window.add(date1);
+		window.row();
+		window.add(saveSpace2).spaceRight(WINDOW_SPACE_RIGHT);
+		window.add(date2);
+		window.row();
+		window.add(saveSpace3).spaceRight(WINDOW_SPACE_RIGHT);
+		window.add(date3);
+		window.row();
+		window.add(saveSpace4).spaceRight(WINDOW_SPACE_RIGHT);
+		window.add(date4);
+		window.row();
+		window.add(saveSpace5).spaceRight(WINDOW_SPACE_RIGHT);
+		window.add(date5);
+		window.row();
+		window.add(back).align(Align.left);
+		rootTable.add(window);
 		addActor(rootTable);
 	}
 	
