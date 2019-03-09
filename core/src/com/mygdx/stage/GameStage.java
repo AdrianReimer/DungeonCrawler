@@ -304,19 +304,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 			spriteManager.getKnight().setMovementX(spriteManager.getKnight().getMovementSpeed());
 			break;
 		case Input.Keys.ESCAPE:
-			if(menuIsOpen){
-				menuIsOpen = false;
-				spriteManager.getKnight().setMovementX(0);
-				spriteManager.getKnight().setMovementY(0);
-				spriteManager.getKnight().setMovementSpeed(Knight.DEFAULT_MOVEMENT_SPEED);
-				menuTable.setVisible(false);
-			}else {
-				menuIsOpen = true;
-				spriteManager.getKnight().setMovementX(0);
-				spriteManager.getKnight().setMovementY(0);
-				spriteManager.getKnight().setMovementSpeed(0);
-				menuTable.setVisible(true);
-			}
+			escapeEvent();
 			break;
 		case Input.Keys.SPACE:
 			if(!spriteManager.getKnight().isAttacking() && spriteManager.getKnight().getStamina() >= spriteManager.getKnight().getAttackStaminaCost()) {
@@ -326,6 +314,25 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		default: break;
 		}
 		return true;
+	}
+	
+	/**
+	 * handles esc-key logic.
+	 */
+	public void escapeEvent() {
+		if(menuIsOpen){
+			menuIsOpen = false;
+			spriteManager.getKnight().setMovementX(0);
+			spriteManager.getKnight().setMovementY(0);
+			spriteManager.getKnight().setMovementSpeed(Knight.DEFAULT_MOVEMENT_SPEED);
+			menuTable.setVisible(false);
+		}else {
+			menuIsOpen = true;
+			spriteManager.getKnight().setMovementX(0);
+			spriteManager.getKnight().setMovementY(0);
+			spriteManager.getKnight().setMovementSpeed(0);
+			menuTable.setVisible(true);
+		}
 	}
 
 	@Override
@@ -464,6 +471,10 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 
 	public Table getMenuTable() {
 		return menuTable;
+	}	
+
+	public boolean getMenuIsOpen() {
+		return menuIsOpen;
 	}
 
 	@Override

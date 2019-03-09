@@ -182,6 +182,8 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
 
     @Override
     public void switchToMainMenu() {
+    	if(gameStage.getMenuIsOpen())
+    		gameStage.escapeEvent();
     	gameStage.getSoundManager().getSoundscape().stopBackgroundMusic();
     	mainMenuStage.getResumeButton().setVisible(gameStage.getWorldManager().isUpdatingLevel());
     	mainMenuStage.setVisible(true);
@@ -190,6 +192,8 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     
     @Override
     public void switchToLoadStage(boolean lastStageWasMainMenu) {
+    	if(!lastStageWasMainMenu)
+    		gameStage.escapeEvent();
     	loadStage.updateDates(this);
         loadStage.setVisible(true);
         loadStage.setLastStageWasMainMenu(lastStageWasMainMenu);
@@ -198,6 +202,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     
     @Override
     public void switchToSaveStage(SpriteManager spriteManager, WorldManager worldManager) {
+    	gameStage.escapeEvent();
         saveStage.setVisible(true);
         saveStage.setGameStage(spriteManager, worldManager);
         Gdx.input.setInputProcessor(saveStage);
@@ -205,6 +210,8 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     
     @Override
     public void switchToOptionStage(boolean lastStageWasMainMenu) {
+    	if(!lastStageWasMainMenu)
+    		gameStage.escapeEvent();
     	optionStage.setLastStageWasMainMenu(lastStageWasMainMenu);
     	optionStage.setVisible(true);
     	Gdx.input.setInputProcessor(optionStage);
