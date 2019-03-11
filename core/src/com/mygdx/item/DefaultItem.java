@@ -30,7 +30,8 @@ import com.mygdx.model.Knight;
  *
  */
 abstract class DefaultItem {
-
+	
+	static final float FONT_SCALE = 2f;
 
 	TiledMapTileLayer collisionLayerObj; // possible interactive entities
 	Cell cell; // holds important information

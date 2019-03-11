@@ -16,13 +16,17 @@
 
 package com.mygdx.item;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.Manager.SoundManager;
 import com.mygdx.constant.GameConstants;
 import com.mygdx.enums.CellProperties;
 import com.mygdx.model.Knight;
+import com.mygdx.screen.GameScreen;
 import com.mygdx.stage.GameStage;
 import com.mygdx.stage.ItemInterface;
 
@@ -39,6 +43,8 @@ public class Chest extends DefaultItem {
 	
 	private SoundManager soundManager;
 	private ItemInterface itemInterface;
+	private Skin skin;
+	private Color color;
 
 	/**
 	 * Chest constructor.
@@ -50,6 +56,8 @@ public class Chest extends DefaultItem {
 		this.soundManager = soundManager;
 		this.knightSprite = knightSprite;
 		this.itemInterface = itemInterface;
+		skin = GameScreen.SKIN;
+		color = Color.GOLDENROD;
 	}
 
 	/**
@@ -75,7 +83,12 @@ public class Chest extends DefaultItem {
 	 */
 	private void chest1() {
 		soundManager.getSoundEffect().playGold();
-		itemInterface.addGold(GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST1)+1);
+		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST1)+1;
+		Label label = new Label("+" + gold,skin);
+		label.setFontScale(FONT_SCALE);
+		label.setColor(color);
+		itemInterface.addLabel(label);
+		itemInterface.addGold(gold);
 		destroyItem();
 	}
 
@@ -84,7 +97,12 @@ public class Chest extends DefaultItem {
 	 */
 	private void chest2() {
 		soundManager.getSoundEffect().playGold();
-		itemInterface.addGold(GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST2)+1);
+		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST2)+1;
+		Label label = new Label("+" + gold,skin);
+		label.setFontScale(FONT_SCALE);
+		label.setColor(color);
+		itemInterface.addLabel(label);
+		itemInterface.addGold(gold);
 		destroyItem();
 	}
 
@@ -93,7 +111,12 @@ public class Chest extends DefaultItem {
 	 */
 	private void chest3() {
 		soundManager.getSoundEffect().playGold();
-		itemInterface.addGold(GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST3)+1);
+		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST3)+1;
+		Label label = new Label("+" + gold,skin);
+		label.setFontScale(FONT_SCALE);
+		label.setColor(color);
+		itemInterface.addLabel(label);
+		itemInterface.addGold(gold);
 		destroyItem();
 	}
 }
