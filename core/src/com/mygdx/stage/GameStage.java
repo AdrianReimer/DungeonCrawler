@@ -467,10 +467,14 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	@Override
 	public void addLabel(Label label) {
 		itemLabels.add(label);
-		itemLabelValues.add(label);
+		itemLabelValues.add(label); // add Text to Table
 		itemLabelValues.row();
 	}
 	
+	/**
+	 * Updates the Items Text Font Scale by changing the scale.
+	 * When the Texts Font Scale is smaller than {@value #ITEM_LABEL_FONT_MINIMUM} it will be removed.
+	 */
 	private void updateItemLabel() {
 		itemLabelAnimateTimer.scheduleTask(new Task() {
 			@Override
