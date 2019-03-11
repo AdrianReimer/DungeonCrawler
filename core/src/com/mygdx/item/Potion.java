@@ -16,13 +16,17 @@
 
 package com.mygdx.item;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.Manager.SoundManager;
 import com.mygdx.constant.GameConstants;
 import com.mygdx.enums.CellProperties;
 import com.mygdx.model.Knight;
+import com.mygdx.screen.GameScreen;
 import com.mygdx.stage.GameStage;
 import com.mygdx.stage.ItemInterface;
 
@@ -38,6 +42,9 @@ public class Potion extends DefaultItem {
 	
 	private SoundManager soundManager;
 	private ItemInterface itemInterface;
+	private Skin skin;
+	private Color healthColor;
+	private Color agilityColor;
 	
 	/**
 	 * Potion constructor.
@@ -49,6 +56,9 @@ public class Potion extends DefaultItem {
 		this.soundManager = soundManager;
 		this.knightSprite = knightSprite;
 		this.itemInterface = itemInterface;
+		skin = GameScreen.SKIN;
+		healthColor = Color.RED;
+		agilityColor = Color.GREEN;
 	}
 	
 	/**
@@ -72,7 +82,12 @@ public class Potion extends DefaultItem {
 	 */
 	private void healthPotion() {
 		soundManager.getSoundEffect().playBottle();
-		itemInterface.addHealth(GameConstants.RANDOM.nextInt(MAX_HEALTH_POTION_VALUE)+1);
+		int health = GameConstants.RANDOM.nextInt(MAX_HEALTH_POTION_VALUE)+1;
+		Label label = new Label("+" + health,skin);
+		label.setFontScale(FONT_SCALE);
+		label.setColor(healthColor);
+		itemInterface.addLabel(label);
+		itemInterface.addHealth(health);
 		destroyItem();
 	}
 
@@ -81,7 +96,12 @@ public class Potion extends DefaultItem {
 	 */
 	private void agilityPotion() {
 		soundManager.getSoundEffect().playBottle();
-		itemInterface.addStamina(GameConstants.RANDOM.nextInt(MAX_AGILITY_POTION_VALUE)+1);
+		int agility = GameConstants.RANDOM.nextInt(MAX_AGILITY_POTION_VALUE)+1;
+		Label label = new Label("+" + agility,skin);
+		label.setFontScale(FONT_SCALE);
+		label.setColor(agilityColor);
+		itemInterface.addLabel(label);
+		itemInterface.addHealth(agility);
 		destroyItem();
 	}
 
