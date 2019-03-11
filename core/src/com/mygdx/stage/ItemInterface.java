@@ -16,6 +16,8 @@
 
 package com.mygdx.stage;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
 /**
  * Interface between Items and {@link GameStage}.
  * @author Adrian Reimer
@@ -25,4 +27,5 @@ public interface ItemInterface {
 	void addGold(int gold);
 	void addHealth(int health);
 	void addStamina(int stamina);
+	void addLabel(Label label);
 }

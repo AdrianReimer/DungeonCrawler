@@ -16,6 +16,9 @@
 
 package com.mygdx.stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -54,9 +57,13 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	public static final float BAR_SPACE_BOTTOM = 25f;
 	public static final float VALUE_SPACE_BOTTOM = 93.5f;
 	public static final float BAR_PAD_TOP = 510f;
+	public static final float TABLE_PAD_BOTTOM = 350f;
 	public static final float SQUARES_MOVE = -14.65f;
 	public static final float FONT_SCALE = 0.7f;
 	private static final float BARS_UPDATE_DELAY = 0.2f;
+	private static final float ITEM_LABEL_UPDATE_DELAY = 0.2f;
+	private static final float ITEM_LABEL_BASE_FONT_MULTIPLIER = 0.9f;
+	private static final float ITEM_LABEL_FONT_MINIMUM = 0.3f;
 	
 	private int gold;
     private boolean visible;
@@ -69,15 +76,18 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private Table deathTable;
 	private Table tableBarsHealthSquares;
 	private Table tableBarsStaminaSquares;
+	private Table itemLabelValues;
 	private Label healthValue;
 	private Label staminaValue;
 	private Label goldValue;
 	private Label levelValue;
 	private Queue<Integer> movement = new Queue<>(4);
+	private List<Label> itemLabels = new ArrayList<>();
 	private Difficulty difficulty;
 	private StageSwitchInterface stageSwitchInterface;
 	private GameStageInterface gameStageInterface;
 	private Timer timer;
+	private Timer itemLabelAnimateTimer;
 
 	/**
 	 * GameStage constructor.
@@ -89,6 +99,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	this.stageSwitchInterface = stageSwitchInterface;
     	this.gameStageInterface = gameStageInterface;
     	timer = new Timer();
+    	itemLabelAnimateTimer = new Timer();
     	Skin skin = GameScreen.SKIN;
     	healthValue = new Label(GameTexts.GAME_STAGE_DEFAULT_VALUE.get(),skin);
     	healthValue.setFontScale(FONT_SCALE);
@@ -122,6 +133,9 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		Label deathLabel = new Label(GameTexts.GAME_STAGE_DEATH_LABEL.get(),skin);
 		deathTable.add(deathLabel);
 		deathTable.row();
+		// create Item Lebel Table
+		itemLabelValues = new Table(skin);
+		itemLabelValues.padBottom(TABLE_PAD_BOTTOM);
 		// menu Table Buttons
 		TextButton saveButton = new TextButton(GameTexts.GAME_STAGE_SAVE_BUTTON.get(), skin);
 		saveButton.addListener(new ChangeListener() {
@@ -211,6 +225,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	tableBarsValues.setFillParent(true);
     	background.setFillParent(true);
     	gameValues.setFillParent(true);
+    	itemLabelValues.setFillParent(true);
     	// set position
     	tableBarsFrame.center().left().padTop(BAR_PAD_TOP);
     	tableBarsHealthSquares.center().left().padTop(BAR_PAD_TOP - 106);
@@ -240,13 +255,15 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
         addActor(gameValues);
         addActor(menuTable);
         addActor(deathTable);
+        addActor(itemLabelValues);
     	// create managers
 		soundManager = new SoundManager(soundInterface);
 		worldManager = new WorldManager();
 		spriteManager = new SpriteManager(worldManager.getCamera());
 		eventManager = new EventManager(soundManager,worldManager,spriteManager,this,modelInterface,deathTable);
 		// start updateBars task
-		updateBars();		
+		updateBars();	
+		updateItemLabel();
     }
 
     @Override
@@ -446,6 +463,27 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		spriteManager.getKnight().setMaxStamina(spriteManager.getKnight().getMaxStamina()+1);
 		spriteManager.getKnight().setStamina(spriteManager.getKnight().getStamina()+stamina);
 	}
+	
+	@Override
+	public void addLabel(Label label) {
+		itemLabels.add(label);
+		itemLabelValues.add(label);
+		itemLabelValues.row();
+	}
+	
+	private void updateItemLabel() {
+		itemLabelAnimateTimer.scheduleTask(new Task() {
+			@Override
+			public void run() {
+	        	for(Label label : itemLabels) {
+	        		label.setFontScale(label.getFontScaleX()*ITEM_LABEL_BASE_FONT_MULTIPLIER);
+	        		if(label.getFontScaleX() < ITEM_LABEL_FONT_MINIMUM) {
+	        			itemLabelValues.removeActor(label);
+	        		}
+	        	}
+			}
+		}, 0,ITEM_LABEL_UPDATE_DELAY);
+	}
 
 	public int getGold() {
 		return gold;
@@ -486,5 +524,5 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		movement.clear();
 		timer.clear();
 	}
-	
+
 }
