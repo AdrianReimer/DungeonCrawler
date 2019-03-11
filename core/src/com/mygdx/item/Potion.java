@@ -96,12 +96,12 @@ public class Potion extends DefaultItem {
 	 */
 	private void agilityPotion() {
 		soundManager.getSoundEffect().playBottle();
-		int agility = GameConstants.RANDOM.nextInt(MAX_AGILITY_POTION_VALUE)+1;
-		Label label = new Label("+" + agility,skin);
+		int stamina = GameConstants.RANDOM.nextInt(MAX_AGILITY_POTION_VALUE)+1;
+		Label label = new Label("+" + stamina,skin);
 		label.setFontScale(FONT_SCALE);
 		label.setColor(agilityColor);
 		itemInterface.addLabel(label);
-		itemInterface.addHealth(agility);
+		itemInterface.addStamina(stamina);
 		destroyItem();
 	}
 
