@@ -40,11 +40,12 @@ public class Chest extends DefaultItem {
 	private static final int MAX_GOLD_CHEST1 = 10;
 	private static final int MAX_GOLD_CHEST2 = 20;
 	private static final int MAX_GOLD_CHEST3 = 40;
+	private static final String GOLD_COLLECT = "gold";
 	
 	private SoundManager soundManager;
 	private ItemInterface itemInterface;
 	private Skin skin;
-	private Color color;
+	private Color goldColor;
 
 	/**
 	 * Chest constructor.
@@ -57,7 +58,7 @@ public class Chest extends DefaultItem {
 		this.knightSprite = knightSprite;
 		this.itemInterface = itemInterface;
 		skin = GameScreen.SKIN;
-		color = Color.GOLDENROD;
+		goldColor = Color.GOLDENROD;
 	}
 
 	/**
@@ -84,9 +85,9 @@ public class Chest extends DefaultItem {
 	private void chest1() {
 		soundManager.getSoundEffect().playGold();
 		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST1)+1;
-		Label label = new Label("+" + gold,skin);
+		Label label = new Label(POSITIVE_COLLECT + gold + GOLD_COLLECT,skin);
 		label.setFontScale(FONT_SCALE);
-		label.setColor(color);
+		label.setColor(goldColor);
 		itemInterface.addLabel(label);
 		itemInterface.addGold(gold);
 		destroyItem();
@@ -98,9 +99,9 @@ public class Chest extends DefaultItem {
 	private void chest2() {
 		soundManager.getSoundEffect().playGold();
 		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST2)+1;
-		Label label = new Label("+" + gold,skin);
+		Label label = new Label(POSITIVE_COLLECT + gold + GOLD_COLLECT,skin);
 		label.setFontScale(FONT_SCALE);
-		label.setColor(color);
+		label.setColor(goldColor);
 		itemInterface.addLabel(label);
 		itemInterface.addGold(gold);
 		destroyItem();
@@ -112,9 +113,9 @@ public class Chest extends DefaultItem {
 	private void chest3() {
 		soundManager.getSoundEffect().playGold();
 		int gold = GameConstants.RANDOM.nextInt(MAX_GOLD_CHEST3)+1;
-		Label label = new Label("+" + gold,skin);
+		Label label = new Label(POSITIVE_COLLECT + gold + GOLD_COLLECT,skin);
 		label.setFontScale(FONT_SCALE);
-		label.setColor(color);
+		label.setColor(goldColor);
 		itemInterface.addLabel(label);
 		itemInterface.addGold(gold);
 		destroyItem();
