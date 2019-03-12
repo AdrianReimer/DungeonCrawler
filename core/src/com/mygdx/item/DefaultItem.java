@@ -32,6 +32,8 @@ import com.mygdx.model.Knight;
 abstract class DefaultItem {
 	
 	static final float FONT_SCALE = 2f;
+	static final String POSITIVE_COLLECT = "+";
+	static final String NEGATIVE_COLLECT = "-";
 
 	TiledMapTileLayer collisionLayerObj; // possible interactive entities
 	Cell cell; // holds important information
