@@ -38,13 +38,15 @@ import com.mygdx.stage.ItemInterface;
 public class Potion extends DefaultItem {
 	
 	private static final int MAX_HEALTH_POTION_VALUE = 10;
-	private static final int MAX_AGILITY_POTION_VALUE = 60;
+	private static final int MAX_STAMINA_POTION_VALUE = 60;
+	private static final String HEALTH_POTION_COLLECT = "HP";
+	private static final String STAMINA_POTION_COLLECT = "STA";
 	
 	private SoundManager soundManager;
 	private ItemInterface itemInterface;
 	private Skin skin;
 	private Color healthColor;
-	private Color agilityColor;
+	private Color staminaColor;
 	
 	/**
 	 * Potion constructor.
@@ -58,7 +60,7 @@ public class Potion extends DefaultItem {
 		this.itemInterface = itemInterface;
 		skin = GameScreen.SKIN;
 		healthColor = Color.RED;
-		agilityColor = Color.GREEN;
+		staminaColor = Color.GREEN;
 	}
 	
 	/**
@@ -83,7 +85,7 @@ public class Potion extends DefaultItem {
 	private void healthPotion() {
 		soundManager.getSoundEffect().playBottle();
 		int health = GameConstants.RANDOM.nextInt(MAX_HEALTH_POTION_VALUE)+1;
-		Label label = new Label("+" + health,skin);
+		Label label = new Label(POSITIVE_COLLECT + health + HEALTH_POTION_COLLECT,skin);
 		label.setFontScale(FONT_SCALE);
 		label.setColor(healthColor);
 		itemInterface.addLabel(label);
@@ -96,10 +98,10 @@ public class Potion extends DefaultItem {
 	 */
 	private void agilityPotion() {
 		soundManager.getSoundEffect().playBottle();
-		int stamina = GameConstants.RANDOM.nextInt(MAX_AGILITY_POTION_VALUE)+1;
-		Label label = new Label("+" + stamina,skin);
+		int stamina = GameConstants.RANDOM.nextInt(MAX_STAMINA_POTION_VALUE)+1;
+		Label label = new Label(POSITIVE_COLLECT + stamina + STAMINA_POTION_COLLECT,skin);
 		label.setFontScale(FONT_SCALE);
-		label.setColor(agilityColor);
+		label.setColor(staminaColor);
 		itemInterface.addLabel(label);
 		itemInterface.addStamina(stamina);
 		destroyItem();
