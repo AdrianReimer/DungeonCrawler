@@ -38,8 +38,17 @@ import com.mygdx.enums.Models;
  */
 public class Knight extends DefaultModel {
 	
-	private static final int MAX_MOVEMENT_FRAME = 5; 
-	private static final int MAX_ATTACK_FRAME = 2;
+	private static final int MAX_MOVEMENT_FRAME = 5; // Defined by Knight SpriteSheet
+	private static final int MAX_ATTACK_FRAME = 2; // --
+	private static final int DOWN_MOVEMENT_ANIMATION_ROW = 0; // --
+	private static final int TOP_MOVEMENT_ANIMATION_ROW = 1; // --
+	private static final int LEFT_MOVEMENT_ANIMATION_ROW = 2; // --
+	private static final int RIGHT_MOVEMENT_ANIMATION_ROW = 3; // --
+	private static final int ATTACK_DOWN_ANIMATION_ROW = 4; // --
+	private static final int ATTACK_TOP_ANIMATION_ROW = 5; // --
+	private static final int ATTACK_LEFT_ANIMATION_ROW = 6; // --
+	private static final int ATTACK_RIGHT_ANIMATION_ROW = 7; // --
+	private static final int DEATH_ANIMATION_ROW = 8; // -- 
 	private static final float ATTACK_DELAY = 0.02f;
 	private static final float MOVEMENT_ANIMATION_DELAY = 0.1f;
 	private static final float ATTACK_ANIMATION_DELAY = 0.15f;
@@ -48,11 +57,11 @@ public class Knight extends DefaultModel {
 	
 	private boolean isAttacking;
 	private boolean isDead;
-	private int attackStaminaCost = 20;
-	private int staminaRegeneration = 1;
-	private int stamina = 100;
-	private int maxHealth = 100;
-	private int maxStamina = 100;
+	private int attackStaminaCost = 20; // stamina cost for attacks
+	private int staminaRegeneration = 1; // stamina regeneration
+	private int stamina = 100; // starting stamina
+	private int maxHealth = 100; // starting maxHealth
+	private int maxStamina = 100; // starting maxStamina
 	private SoundManager soundManager;
 	private List<DefaultModel> modelList;
 	private Timer attackAnimationTimer;
@@ -61,7 +70,7 @@ public class Knight extends DefaultModel {
 	private int spawnX;
 	private int spawnY;
 	private Queue<DefaultModel> targets;
-	private Table deathTable;
+	private Table deathTable; // visible when knight is dead
 
 	/**
 	 * Knight constructor.
@@ -73,6 +82,7 @@ public class Knight extends DefaultModel {
 		this.soundManager = soundManager;
 		this.modelList = modelList;
 		this.deathTable = deathTable;
+		// name this model the same as the Class
 		name = this.getClass().toString();
 		attackAnimationTimer = new Timer();
 		deathAnimationTimer = new Timer();
@@ -82,10 +92,12 @@ public class Knight extends DefaultModel {
 		regions = TextureRegion.split(anims, 64, 64);
 		sprite = new Sprite(regions[row][frame]);
 		movementAnimationTimer = new Timer();
+		// start Timer Methods
 		movementAnimation();
 		attack();
 		death();
 		staminaRegeneration();
+		// add model to List
 		modelList.add(this);
 	}
 
@@ -109,13 +121,13 @@ public class Knight extends DefaultModel {
 	 */
 	private void movementAnimationToSpritesheetRow () {
 		if (movementX < 0)
-			row = 2;
+			row = LEFT_MOVEMENT_ANIMATION_ROW;
 		else if (movementX > 0)
-			row = 3;
+			row = RIGHT_MOVEMENT_ANIMATION_ROW;
 		else if (movementY < 0)
-			row = 0;
+			row = DOWN_MOVEMENT_ANIMATION_ROW;
 		else if (movementY > 0)
-			row = 1;
+			row = TOP_MOVEMENT_ANIMATION_ROW;
 		else {
 			frame = 1;
 			sprite.setRegion(regions[row][frame]);
@@ -126,21 +138,22 @@ public class Knight extends DefaultModel {
 	 * handles the attack Animation.
 	 */
 	public void attackAnimation() {
+		// can´t attack again while attacking
 		isAttacking = true;
+		// stamina cost for attack
 		setStamina(stamina - attackStaminaCost);
+		// stop movement Animation
 		movementAnimationTimer.stop();
 		soundManager.getSoundEffect().playSwordSwing();
 		frame = 0;
+		isHittingEnemy();
 		attackAnimationTimer.scheduleTask(new Task() {
 			@Override
 			public void run() {
-				if(frame == 0) {
-					isHittingEnemy();
-				}
 				movementAnimationWhileAttackAnimation();
 				if (frame > MAX_ATTACK_FRAME) {
 					frame = 0;
-					row -= 4;
+					row -= ATTACK_DOWN_ANIMATION_ROW;
 					movementAnimationTimer.start();
 					attackAnimationTimer.clear();
 					isAttacking = false;
@@ -156,15 +169,15 @@ public class Knight extends DefaultModel {
 	 */
 	private void movementAnimationWhileAttackAnimation () {
 		if (movementX < 0)
-			row = 2;
+			row = LEFT_MOVEMENT_ANIMATION_ROW;
 		else if (movementX > 0)
-			row = 3;
+			row = RIGHT_MOVEMENT_ANIMATION_ROW;
 		else if (movementY < 0)
-			row = 0;
+			row = DOWN_MOVEMENT_ANIMATION_ROW;
 		else if (movementY > 0)
-			row = 1;
-		if (row < 4)
-			row += 4;
+			row = TOP_MOVEMENT_ANIMATION_ROW;
+		if (row < ATTACK_DOWN_ANIMATION_ROW)
+			row += ATTACK_DOWN_ANIMATION_ROW;
 	}
 	
 	/**
@@ -176,10 +189,13 @@ public class Knight extends DefaultModel {
 			public void run() {
 				if(health <= 0) {
 					if (frame >= MAX_MOVEMENT_FRAME) {
-						row = 0;
+						row = DOWN_MOVEMENT_ANIMATION_ROW;
+						// enable death "window"
 						deathTable.setVisible(true);
+						// enable Animation timers for next NewGame
 						movementAnimationTimer.start();
 						attackAnimationTimer.start();
+						// stop death Animation
 						deathAnimationTimer.stop();
 					}else {
 						sprite.setRegion(regions[row][frame]);
@@ -219,20 +235,20 @@ public class Knight extends DefaultModel {
 				continue;
 			}
 			switch (row) {
-			case 0:
-			case 4:
+			case DOWN_MOVEMENT_ANIMATION_ROW:
+			case ATTACK_DOWN_ANIMATION_ROW:
 				isHittingBottom(model);
 				break;
-			case 1:
-			case 5:
+			case TOP_MOVEMENT_ANIMATION_ROW:
+			case ATTACK_TOP_ANIMATION_ROW:
 				isHittingTop(model);
 				break;
-			case 2:
-			case 6:
+			case LEFT_MOVEMENT_ANIMATION_ROW:
+			case ATTACK_LEFT_ANIMATION_ROW:
 				isHittingLeft(model);
 				break;
-			case 3:
-			case 7:
+			case RIGHT_MOVEMENT_ANIMATION_ROW:
+			case ATTACK_RIGHT_ANIMATION_ROW:
 				isHittingRight(model);
 				break;
 			default: break;
@@ -328,12 +344,16 @@ public class Knight extends DefaultModel {
 		else if (health <= 0) {
 			this.health = 0;
 			if(!isDead) {
+				// stop animations
 				movementAnimationTimer.stop();
 				attackAnimationTimer.stop();
+				// disable movement
 				movementX = 0;
 				movementY = 0;
 				movementSpeed = 0;
-				row = 8;
+				// switch to deathAnimation SpriteSheet row
+				row = DEATH_ANIMATION_ROW;
+				frame = 0;
 				deathAnimationTimer.start();
 				isDead = true;
 			}
