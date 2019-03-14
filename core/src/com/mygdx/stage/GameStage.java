@@ -54,12 +54,24 @@ import com.mygdx.screen.GameScreen;
  */
 public class GameStage extends Stage implements Disposable,ItemInterface,LoadInterface{
 	
-	public static final float BAR_SPACE_BOTTOM = 25f;
-	public static final float VALUE_SPACE_BOTTOM = 93.5f;
-	public static final float BAR_PAD_TOP = 510f;
-	public static final float TABLE_PAD_BOTTOM = 350f;
-	public static final float SQUARES_MOVE = -14.65f;
-	public static final float FONT_SCALE = 0.7f;
+	private static final float BAR_SPACE_BOTTOM = 25;
+	private static final float VALUE_SPACE_BOTTOM = 93.5f;
+	private static final float BAR_PAD_TOP = 510;
+	private static final float TABLE_BARS_SQUARES_PAD_TOP = 106;
+	private static final float TABLE_BARS_VALUES_PAD_TOP = 480;
+	private static final float TABLE_BARS_VALUES_PAD_LEFT = 100;
+	private static final float GAME_VALUES_PAD_TOP = 190;
+	private static final float GAME_VALUES_PAD_RIGHT = 970;
+	private static final float TABLE_PAD_BOTTOM = 350;
+	private static final float TABLE_BARS_SIZEX = 278;
+	private static final float TABLE_BARS_SIZEY = 81;
+	private static final float BACKGROUND_SIZEX = 300;
+	private static final float BACKGROUND_SIZEY = 320;
+	private static final float FONT_SCALE = 0.7f;
+	private static final int MENU_TABLE_WIDTH = 800;
+	private static final int MENU_TABLE_HEIGHT = 600;
+	private static final int DEATH_TABLE_WIDTH = 250;
+	private static final int DEATH_TABLE_HEIGHT = 250;
 	private static final float BARS_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_BASE_FONT_MULTIPLIER = 0.9f;
@@ -116,8 +128,8 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	// create menu Table 
 		menuTable = new Table(skin);
 		menuTable.background(GameConstants.TABLE_BACKGROUND);
-		menuTable.setWidth(250f);
-		menuTable.setHeight(280f);
+		menuTable.setWidth(MENU_TABLE_WIDTH);
+		menuTable.setHeight(MENU_TABLE_HEIGHT);
 		menuTable.setPosition((float)Gdx.graphics.getWidth()/2, (float)Gdx.graphics.getHeight()/2, Align.center);
 		menuTable.setVisible(false);
 		Label menuLabel = new Label(GameTexts.GAME_STAGE_MENU_LABEL.get(),skin);
@@ -126,8 +138,8 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		// create Death Table
 		deathTable = new Table(skin);
 		deathTable.background(GameConstants.TABLE_BACKGROUND);
-		deathTable.setWidth(800f);
-		deathTable.setHeight(600f);
+		deathTable.setWidth(DEATH_TABLE_WIDTH);
+		deathTable.setHeight(DEATH_TABLE_HEIGHT);
 		deathTable.setPosition((float)Gdx.graphics.getWidth()/2, (float)Gdx.graphics.getHeight()/2, Align.center);
 		deathTable.setVisible(false);
 		Label deathLabel = new Label(GameTexts.GAME_STAGE_DEATH_LABEL.get(),skin);
@@ -228,18 +240,18 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	itemLabelValues.setFillParent(true);
     	// set position
     	tableBarsFrame.center().left().padTop(BAR_PAD_TOP);
-    	tableBarsHealthSquares.center().left().padTop(BAR_PAD_TOP - 106);
-    	tableBarsStaminaSquares.center().left().padTop(BAR_PAD_TOP + 106);
-    	tableBarsValues.center().left().padTop(BAR_PAD_TOP - 30).padLeft(100f);
-    	gameValues.padTop(BAR_PAD_TOP - 320).padRight(970);
+    	tableBarsHealthSquares.center().left().padTop(BAR_PAD_TOP - TABLE_BARS_SQUARES_PAD_TOP);
+    	tableBarsStaminaSquares.center().left().padTop(BAR_PAD_TOP + TABLE_BARS_SQUARES_PAD_TOP);
+    	tableBarsValues.center().left().padTop(TABLE_BARS_VALUES_PAD_TOP).padLeft(TABLE_BARS_VALUES_PAD_LEFT);
+    	gameValues.padTop(GAME_VALUES_PAD_TOP).padRight(GAME_VALUES_PAD_RIGHT);
     	background.left().bottom();
         // add buttons to tables
-    	tableBarsFrame.add(gameStageInterface.getImage(GameStageImages.HEALTHBAR_FRAME)).spaceBottom(BAR_SPACE_BOTTOM).size(278, 81);
+    	tableBarsFrame.add(gameStageInterface.getImage(GameStageImages.HEALTHBAR_FRAME)).spaceBottom(BAR_SPACE_BOTTOM).size(TABLE_BARS_SIZEX, TABLE_BARS_SIZEY);
     	tableBarsFrame.row();
-    	tableBarsFrame.add(gameStageInterface.getImage(GameStageImages.STAMINABAR_FRAME)).spaceBottom(BAR_SPACE_BOTTOM).size(278, 81);
-    	tableBarsHealthSquares.add(gameStageInterface.getImage(GameStageImages.HEALTHBAR_SQUARES)).spaceBottom(BAR_SPACE_BOTTOM).size(278, 81);
-    	tableBarsStaminaSquares.add(gameStageInterface.getImage(GameStageImages.STAMINABAR_SQUARES)).spaceBottom(BAR_SPACE_BOTTOM).size(278, 81);
-    	background.add(gameStageInterface.getImage(GameStageImages.BACKGROUND_FRAME)).size(300, 320);
+    	tableBarsFrame.add(gameStageInterface.getImage(GameStageImages.STAMINABAR_FRAME)).spaceBottom(BAR_SPACE_BOTTOM).size(TABLE_BARS_SIZEX, TABLE_BARS_SIZEY);
+    	tableBarsHealthSquares.add(gameStageInterface.getImage(GameStageImages.HEALTHBAR_SQUARES)).spaceBottom(BAR_SPACE_BOTTOM).size(TABLE_BARS_SIZEX, TABLE_BARS_SIZEY);
+    	tableBarsStaminaSquares.add(gameStageInterface.getImage(GameStageImages.STAMINABAR_SQUARES)).spaceBottom(BAR_SPACE_BOTTOM).size(TABLE_BARS_SIZEX, TABLE_BARS_SIZEY);
+    	background.add(gameStageInterface.getImage(GameStageImages.BACKGROUND_FRAME)).size(BACKGROUND_SIZEX, BACKGROUND_SIZEY);
     	gameValues.add(levelValue).spaceBottom(VALUE_SPACE_BOTTOM/3);
     	gameValues.row();
     	gameValues.add(goldValue).spaceBottom(VALUE_SPACE_BOTTOM/3);
