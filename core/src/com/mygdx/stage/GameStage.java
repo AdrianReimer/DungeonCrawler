@@ -68,10 +68,10 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private static final float BACKGROUND_SIZEX = 300;
 	private static final float BACKGROUND_SIZEY = 320;
 	private static final float FONT_SCALE = 0.7f;
-	private static final int MENU_TABLE_WIDTH = 800;
-	private static final int MENU_TABLE_HEIGHT = 600;
-	private static final int DEATH_TABLE_WIDTH = 250;
-	private static final int DEATH_TABLE_HEIGHT = 250;
+	private static final int MENU_TABLE_WIDTH = 250;
+	private static final int MENU_TABLE_HEIGHT = 300;
+	private static final int DEATH_TABLE_WIDTH = 800;
+	private static final int DEATH_TABLE_HEIGHT = 600;
 	private static final float BARS_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_BASE_FONT_MULTIPLIER = 0.9f;
