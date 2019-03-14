@@ -51,15 +51,16 @@ public class MainMenuStage extends Stage {
 	 */
 	public MainMenuStage(final StageSwitchInterface stageSwitchInterface,final SoundInterface soundInterface,WorldManager worldManager,SpriteManager spriteManager) {
 		Skin skin = GameScreen.SKIN;
+		// create root Table 
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
 		rootTable.align(Align.topLeft);
-
+		// create label
 		Label label = new Label(GameTexts.MAIN_MENU_STAGE_LABEL.get(),skin);
 		rootTable.add(label);
 		rootTable.row();
-
+		// create Buttons
 		resumeButton = new TextButton(GameTexts.MAIN_MENU_STAGE_RESUME_BUTTON.get(), skin);
 		resumeButton.setVisible(false);
 		resumeButton.addListener(new ChangeListener() {
@@ -110,6 +111,7 @@ public class MainMenuStage extends Stage {
 				Gdx.app.exit();
 			}
 		});
+		// fill Table
 		rootTable.add(resumeButton).align(Align.bottomLeft);
 		rootTable.row();
 		rootTable.add(newgameButton).align(Align.bottomLeft);
@@ -121,8 +123,8 @@ public class MainMenuStage extends Stage {
 		rootTable.add(highscoreButton).align(Align.bottomLeft);
 		rootTable.row();
 		rootTable.add(exitButton).align(Align.bottomLeft);
+		// add Actors to Stage
 		addActor(rootTable);
-
 	}
 
 	@Override

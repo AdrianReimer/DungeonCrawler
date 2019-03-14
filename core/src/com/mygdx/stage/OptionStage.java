@@ -193,14 +193,14 @@ public class OptionStage extends Stage {
 				escapeEvent();
 			}
 		});
-        
+        // fill windows
         displaySettingsWindow.add(windowModeSelectBox).spaceBottom(BOX_SPACE_BOTTOM);
         displaySettingsWindow.row();
         displaySettingsWindow.add(resolutionSelectBox).spaceBottom(BOX_SPACE_BOTTOM);
         gameSettingsWindow.add(vsyncBox).spaceBottom(BOX_SPACE_BOTTOM);
         soundSettingsWindow.add(soundEffectMasterSlider).spaceBottom(BOX_SPACE_BOTTOM);
         musicSettingsWindow.add(soundScapeMasterSlider).spaceBottom(BOX_SPACE_BOTTOM);
-        
+        // fill root Table
         rootTable.add(displaySettingsWindow).spaceBottom(WINDOW_SPACE_BOTTOM);
         rootTable.row();
         rootTable.add(gameSettingsWindow).spaceBottom(WINDOW_SPACE_BOTTOM);
@@ -210,7 +210,7 @@ public class OptionStage extends Stage {
         rootTable.add(musicSettingsWindow).spaceBottom(WINDOW_SPACE_BOTTOM);
         rootTable.row();
         rootTable.add(back);
-		
+        // add Actors to Stage
 		addActor(rootTable);
 	}
 	

@@ -91,18 +91,20 @@ public class LoadStage extends Stage{
 		this.modelInterface = modelInterface;
 		this.eventManager = eventManager;
 		Skin skin = GameScreen.SKIN;
+		// create root Table 
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
+		// create window
 		Window window = new Window(GameTexts.LOAD_STAGE_LABEL.get(), skin, GameConstants.DIALOG_WINDOW_STYLE);
 		window.setMovable(false);
-		
+		// add dates
 		date1 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_1_FILEPATH)),skin);
 		date2 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_2_FILEPATH)),skin);
 		date3 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_3_FILEPATH)),skin);
 		date4 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_4_FILEPATH)),skin);
 		date5 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_5_FILEPATH)),skin);
-
+		// create Buttons
 		TextButton loadSpace1 = new TextButton(GameTexts.LOAD_STAGE_BUTTON1.get(), skin);
 		loadSpace1.addListener(new ChangeListener() {
 			@Override
@@ -145,6 +147,7 @@ public class LoadStage extends Stage{
 				escapeEvent();
 			}
 		});
+		// fill window
 		window.add(loadSpace1).spaceRight(WINDOW_SPACE_RIGHT);
 		window.add(date1);
 		window.row();
@@ -162,6 +165,7 @@ public class LoadStage extends Stage{
 		window.row();
 		window.add(back).align(Align.left);
 		rootTable.add(window);
+		// add Actors to Stage
 		addActor(rootTable);
 	}
 	
@@ -202,14 +206,17 @@ public class LoadStage extends Stage{
 	 */
 	private void loadTmxMap (String mapPath, String dataPath) {
 		try {
+			// load map
 			tmMain = loader.load(mapPath);
 		} catch (SerializationException e) {
 			Gdx.app.log("LoadTmxMap", "Error loading TmxMap",e);
 			return;
 		}
 		loadInterface.getWorldManager().dispose();
+		// set map
 		loadInterface.getWorldManager().setTiledMap(tmMain);
 		loadInterface.getWorldManager().setTiledMapRenderer(new OrthogonalTiledMapRenderer(tmMain));	
+		// load map save data
 		loadSaveData(dataPath);
 		eventManager.setOnFinish(false);
 		visible = false;
