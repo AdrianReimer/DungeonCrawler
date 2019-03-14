@@ -56,15 +56,17 @@ public class LoadingStage extends Stage {
     	this.gameStage = gameStage;
 		Skin skin = GameScreen.SKIN;
 		timer = new Timer();
-		
+		// create root Table 
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
 		rootTable.align(Align.bottomRight);
-
+		// create label
 		label = new Label(GameTexts.LOADING_STAGE_LABEL.get(),skin);
 		rootTable.add(label);
+		// add Actors to Stage
 		addActor(rootTable);
+		// start Timer Methods
 		loadDungeon();
     }
     

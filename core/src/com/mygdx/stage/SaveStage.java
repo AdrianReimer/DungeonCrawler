@@ -73,18 +73,20 @@ public class SaveStage extends Stage {
 		tmxWriter = new TmxWriter();
 		saveDataWriter = new SaveDataWriter();
 		Skin skin = GameScreen.SKIN;
+		// create root Table 
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
+		// create window
 		Window window = new Window(GameTexts.SAVE_STAGE_LABEL.get(), skin, GameConstants.DIALOG_WINDOW_STYLE);
 		window.setMovable(false);
-		
+		// add dates
 		date1 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_1_FILEPATH)),skin);
 		date2 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_2_FILEPATH)),skin);
 		date3 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_3_FILEPATH)),skin);
 		date4 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_4_FILEPATH)),skin);
 		date5 = new Label(loadSaveDataDate (gameSaveInterface.getPath(GameSaves.SAVE_DATA_5_FILEPATH)),skin);
-
+		// create Buttons
 		TextButton saveSpace1 = new TextButton(GameTexts.SAVE_STAGE_BUTTON1.get(), skin);
 		saveSpace1.addListener(new ChangeListener() {
 			@Override
@@ -147,6 +149,7 @@ public class SaveStage extends Stage {
 				escapeEvent();
 			}
 		});
+		// fill window
 		window.add(saveSpace1).spaceRight(WINDOW_SPACE_RIGHT);
 		window.add(date1);
 		window.row();
@@ -163,7 +166,9 @@ public class SaveStage extends Stage {
 		window.add(date5);
 		window.row();
 		window.add(back).align(Align.left);
+		// fill root Table
 		rootTable.add(window);
+		// add Actors to Stage
 		addActor(rootTable);
 	}
 	
