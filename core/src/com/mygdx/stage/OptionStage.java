@@ -44,6 +44,8 @@ public class OptionStage extends Stage {
 	private static final float WINDOW_SPACE_BOTTOM = 30;
 	private static final float WINDOW_PAD = 50;
 	
+	private int screenWidth; // saved window width and height
+	private int screenHeight; // --
     private boolean visible = false;
     private boolean lastStageWasMainMenu = false;
     private SoundManager soundManager;
@@ -75,6 +77,7 @@ public class OptionStage extends Stage {
         musicSettingsWindow.setMovable(false);
         // add select boxes
         SelectBox<String> windowModeSelectBox = new SelectBox<>(skin);
+        SelectBox<String> resolutionSelectBox = new SelectBox<>(skin);
         windowModeSelectBox.setItems("Windowed", "Fullscreen");
         windowModeSelectBox.setMaxListCount(2);
         windowModeSelectBox.addListener(new ChangeListener() {
@@ -82,81 +85,88 @@ public class OptionStage extends Stage {
 			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 				switch(windowModeSelectBox.getSelected()) {
 				case "Fullscreen":
+					screenWidth = Gdx.graphics.getWidth(); // last window scales
+					screenHeight = Gdx.graphics.getHeight(); // --
+					resolutionSelectBox.setDisabled(true);
 					Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 					break;
 				case "Windowed":
-					Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+					Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
+					resolutionSelectBox.setDisabled(false);
 					break;
 				default: break;
 				}
 			}
 		});
-        SelectBox<String> resolutionSelectBox = new SelectBox<>(skin);
         resolutionSelectBox.setItems("1280 x 720", "800 x 600", "1024 x 768", "1280 x 800", "1280 x 1024", "1360 x 768",
         							"1366 x 768", "1440 x 900", "1536 x 864", "1600 x 900", "1680 x 1050", "1920 x 1080",
         							"1920 x 1200", "2048 x 1152", "2560 x 1080", "2560 x 1440", "3340 x 1440", "3840 x 2160");
         resolutionSelectBox.setMaxListCount(6);
         resolutionSelectBox.addListener(new ChangeListener() {
 			@Override
-			public void changed(ChangeListener.ChangeEvent event, Actor actor) {				
-				switch (resolutionSelectBox.getSelected()) {
-				case "800 x 600":
-					Gdx.graphics.setWindowedMode(800, 600);
-					break;
-				case "1024 x 768":
-					Gdx.graphics.setWindowedMode(1024, 768);
-					break;
-				case "1280 x 720":
-					Gdx.graphics.setWindowedMode(1280, 720);
-					break;
-				case "1280 x 800":
-					Gdx.graphics.setWindowedMode(1280, 800);
-					break;
-				case "1280 x 1024":
-					Gdx.graphics.setWindowedMode(1280, 1024);
-					break;
-				case "1360 x 768":
-					Gdx.graphics.setWindowedMode(1360, 768);
-					break;
-				case "1366 x 768":
-					Gdx.graphics.setWindowedMode(1366, 768);
-					break;
-				case "1440 x 900":
-					Gdx.graphics.setWindowedMode(1440, 900);
-					break;
-				case "1536 x 864":
-					Gdx.graphics.setWindowedMode(1536, 864);
-					break;
-				case "1600 x 900":
-					Gdx.graphics.setWindowedMode(1600, 900);
-					break;
-				case "1680 x 1050":
-					Gdx.graphics.setWindowedMode(1680, 1050);
-					break;
-				case "1920 x 1080":
-					Gdx.graphics.setWindowedMode(1920, 1080);
-					break;
-				case "1920 x 1200":
-					Gdx.graphics.setWindowedMode(1920, 1200);
-					break;
-				case "2048 x 1152":
-					Gdx.graphics.setWindowedMode(2048, 1152);
-					break;
-				case "2560 x 1080":
-					Gdx.graphics.setWindowedMode(2560, 1080);
-					break;
-				case "2560 x 1440":
-					Gdx.graphics.setWindowedMode(2560, 1440);
-					break;
-				case "3340 x 1440":
-					Gdx.graphics.setWindowedMode(3340, 1440);
-					break;
-				case "3840 x 2160":
-					Gdx.graphics.setWindowedMode(3840, 2160);
-					break;
-				default: break;
+			public void changed(ChangeListener.ChangeEvent event, Actor actor) {	
+				if(windowModeSelectBox.getSelected().equals("Windowed")) {
+					switch (resolutionSelectBox.getSelected()) {
+					case "800 x 600":
+						Gdx.graphics.setWindowedMode(800, 600);
+						break;
+					case "1024 x 768":
+						Gdx.graphics.setWindowedMode(1024, 768);
+						break;
+					case "1280 x 720":
+						Gdx.graphics.setWindowedMode(1280, 720);
+						break;
+					case "1280 x 800":
+						Gdx.graphics.setWindowedMode(1280, 800);
+						break;
+					case "1280 x 1024":
+						Gdx.graphics.setWindowedMode(1280, 1024);
+						break;
+					case "1360 x 768":
+						Gdx.graphics.setWindowedMode(1360, 768);
+						break;
+					case "1366 x 768":
+						Gdx.graphics.setWindowedMode(1366, 768);
+						break;
+					case "1440 x 900":
+						Gdx.graphics.setWindowedMode(1440, 900);
+						break;
+					case "1536 x 864":
+						Gdx.graphics.setWindowedMode(1536, 864);
+						break;
+					case "1600 x 900":
+						Gdx.graphics.setWindowedMode(1600, 900);
+						break;
+					case "1680 x 1050":
+						Gdx.graphics.setWindowedMode(1680, 1050);
+						break;
+					case "1920 x 1080":
+						Gdx.graphics.setWindowedMode(1920, 1080);
+						break;
+					case "1920 x 1200":
+						Gdx.graphics.setWindowedMode(1920, 1200);
+						break;
+					case "2048 x 1152":
+						Gdx.graphics.setWindowedMode(2048, 1152);
+						break;
+					case "2560 x 1080":
+						Gdx.graphics.setWindowedMode(2560, 1080);
+						break;
+					case "2560 x 1440":
+						Gdx.graphics.setWindowedMode(2560, 1440);
+						break;
+					case "3340 x 1440":
+						Gdx.graphics.setWindowedMode(3340, 1440);
+						break;
+					case "3840 x 2160":
+						Gdx.graphics.setWindowedMode(3840, 2160);
+						break;
+					default:
+						windowModeSelectBox.fire(event);
+						break;
+					}
 				}
-				windowModeSelectBox.fire(event);
+				//windowModeSelectBox.fire(event);
 			}
 		});
         // add check boxes
