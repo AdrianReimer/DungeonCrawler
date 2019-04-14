@@ -73,6 +73,7 @@ public class OptionStage extends Stage {
 				GameTexts.OPTION_STAGE_DISPLAY_SETTINGS_TEXT.get(), skin,
 				GameConstants.DIALOG_WINDOW_STYLE);
 		displaySettingsWindow.pad(WINDOW_PAD);
+		displaySettingsWindow.setMovable(false);
 		Window gameSettingsWindow = new Window(
 				GameTexts.OPTION_STAGE_GAME_SETTINGS_TEXT.get(), skin,
 				GameConstants.DIALOG_WINDOW_STYLE);
@@ -100,13 +101,13 @@ public class OptionStage extends Stage {
 				case "Fullscreen":
 					screenWidth = Gdx.graphics.getWidth(); // last window scales
 					screenHeight = Gdx.graphics.getHeight(); // --
-					resolutionSelectBox.setDisabled(true);
+					resolutionSelectBox.setVisible(false);
 					Gdx.graphics.setFullscreenMode(Gdx.graphics
 							.getDisplayMode());
 					break;
 				case "Windowed":
 					Gdx.graphics.setWindowedMode(screenWidth, screenHeight);
-					resolutionSelectBox.setDisabled(false);
+					resolutionSelectBox.setVisible(true);
 					break;
 				default:
 					break;
