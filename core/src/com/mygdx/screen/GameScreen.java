@@ -118,13 +118,13 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
         Pixmap pm = new Pixmap(Gdx.files.internal(GAME_CURSOR_LOCATION));
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
         // create Game Stages 
-        gameStage = new GameStage(this,this,this,this);
+        gameStage = new GameStage(this,this,this,this,System.getProperty("user.name"));
     	mainMenuStage = new MainMenuStage(this,this,gameStage.getWorldManager(),gameStage.getSpriteManager());
     	saveStage = new SaveStage(this,this,this,gameStage,difficultyQueue);
     	loadStage = new LoadStage(this,this,this,this,gameStage,gameStage.getEventManager(),difficultyQueue);
     	optionStage = new OptionStage(this,gameStage.getSoundManager());
     	loadingStage = new LoadingStage(this,gameStage);
-    	deathStage = new DeathStage(this,this);
+    	deathStage = new DeathStage(this,this,System.getProperty("user.name"));
     	highscoreStage = new HighscoreStage(this,this,this);
     	// Shutdown Hook --> releases textures
     	Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

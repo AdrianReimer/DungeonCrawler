@@ -47,14 +47,14 @@ public class DeathStage extends Stage {
      * @param stageSwitchInterface | {@link StageSwitchInterface}.
      * @param soundInterface | {@link SoundInterface}.
      */
-	public DeathStage (final StageSwitchInterface stageSwitchInterface, final SoundInterface soundInterface) {
+	public DeathStage (final StageSwitchInterface stageSwitchInterface, final SoundInterface soundInterface, String playerName) {
 		this.stageSwitchInterface = stageSwitchInterface;
 		Skin skin = GameScreen.SKIN;
 		Table rootTable = new Table(skin);
 		rootTable.background(GameConstants.TABLE_BACKGROUND);
 		rootTable.setFillParent(true);
 		// add textfield for Highscore-list
-		textField = new TextField("", skin);
+		textField = new TextField(playerName, skin);
 		textField.setMaxLength(MAX_NAME_LENGTH);
 		textField.scaleBy(2);
 		// add label

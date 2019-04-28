@@ -55,7 +55,7 @@ import com.mygdx.screen.GameScreen;
 public class GameStage extends Stage implements Disposable,ItemInterface,LoadInterface{
 	
 	private static final float VALUE_SPACE_BOTTOM = 6.5f;
-	private static final float TABLE_BARS_VALUES_PAD_TOP = 36;
+	private static final float TABLE_BARS_VALUES_PAD_TOP = 11;
 	private static final float TABLE_BARS_VALUES_PAD_LEFT = 140;
 	private static final float LEVEL_VALUES_PAD_LEFT = 37;
 	private static final float LEVEL_VALUES_PAD_BOTTOM = 10;
@@ -88,6 +88,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private Label staminaValue;
 	private Label goldValue;
 	private Label levelValue;
+	private Label name;
 	private Queue<Integer> movement = new Queue<>(4);
 	private List<Label> itemLabels = new ArrayList<>();
 	private Difficulty difficulty;
@@ -102,7 +103,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	 * @param gameStageInterface | {@link GameStageInterface}.
 	 * @param soundInterface | {@link SoundInterface}.
 	 */
-    public GameStage(final StageSwitchInterface stageSwitchInterface,final GameStageInterface gameStageInterface,final SoundInterface soundInterface, final ModelInterface modelInterface) {
+    public GameStage(final StageSwitchInterface stageSwitchInterface,final GameStageInterface gameStageInterface,final SoundInterface soundInterface, final ModelInterface modelInterface, String playerName) {
     	this.stageSwitchInterface = stageSwitchInterface;
     	this.gameStageInterface = gameStageInterface;
     	timer = new Timer();
@@ -120,6 +121,9 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	levelValue = new Label("Level 1",skin);
     	levelValue.setFontScale(FONT_SCALE);
     	levelValue.setColor(Color.GRAY);
+    	name = new Label(playerName,skin);
+    	name.setFontScale(FONT_SCALE*1.5f);
+    	name.setColor(Color.WHITE);
     	// create menu Table 
 		menuTable = new Table(skin);
 		menuTable.background(GameConstants.TABLE_BACKGROUND);
@@ -219,6 +223,8 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	gameValues.add(levelValue).spaceBottom(LEVEL_VALUES_SPACE_BOTTOM);
     	gameValues.row();
     	gameValues.add(goldValue).spaceBottom(LEVEL_VALUES_SPACE_BOTTOM);
+    	tableBarsValues.add(name).spaceBottom(VALUE_SPACE_BOTTOM);
+    	tableBarsValues.row();
     	tableBarsValues.add(healthValue).spaceBottom(VALUE_SPACE_BOTTOM);
     	tableBarsValues.row();
     	tableBarsValues.add(staminaValue).spaceBottom(VALUE_SPACE_BOTTOM);
