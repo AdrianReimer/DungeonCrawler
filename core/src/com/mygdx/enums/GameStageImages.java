@@ -22,14 +22,12 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public enum GameStageImages {
 	// GameStage
-    HEALTHBAR_FRAME("data/GUI/GameStage/healthbar_frame.png"),
-    HEALTHBAR_SQUARES("data/GUI/GameStage/healthbar_squares.png"),
-    MANABAR_FRAME("data/GUI/GameStage/manabar_frame.png"),
-    MANABAR_SQUARES("data/GUI/GameStage/manabar_squares.png"),
-    STAMINABAR_FRAME("data/GUI/GameStage/staminabar_frame.png"),
-    STAMINABAR_SQUARES("data/GUI/GameStage/staminabar_squares.png"),
-    BACKGROUND_FRAME("data/GUI/GameStage/background_frame.png"),
-    TREASURE_CRATE("data/GUI/GameStage/treasure_crate.png");
+    CHARACTER_FRAME("data/GUI/GameStage/character_frame.png"),
+    HEALTHBAR("data/GUI/GameStage/health_bar.png"),
+    STAMINABAR("data/GUI/GameStage/stamina_bar.png"),
+    BACKGROUND_FRAME("data/GUI/GameStage/character_frame_background.png"),
+    VALUEBAR("data/GUI/GameStage/value_bar.png"),
+    VALUEBAR2("data/GUI/GameStage/value_bar2.png");
     
     private String fileName = null;
 
