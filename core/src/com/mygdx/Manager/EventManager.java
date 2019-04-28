@@ -65,12 +65,12 @@ public class EventManager implements Disposable {
 	 * @param itemInterface | Interface between {@link GameStage} and other Items. 
 	 * @param deathTable | {@link Table} that gets visible when the {@link Knight} dies.
 	 */
-	public EventManager(SoundManager soundManager,WorldManager worldManager,SpriteManager spriteManager, final ItemInterface itemInterface,final ModelInterface modelInterface, Table deathTable) {
+	public EventManager(SoundManager soundManager,WorldManager worldManager,SpriteManager spriteManager, final ItemInterface itemInterface,final ModelInterface modelInterface) {
 		this.worldManager = worldManager;
 		this.spriteManager = spriteManager;
 		this.modelInterface = modelInterface;
 		// Player movement Controller init + Player Creation
-		spriteManager.setKnight(new Knight(soundManager,spriteManager.getModelList(),deathTable,modelInterface));
+		spriteManager.setKnight(new Knight(soundManager,spriteManager.getModelList(),modelInterface));
 		// interactable Game Objects
 		potion = new Potion(soundManager,spriteManager.getKnight().getSprite(),itemInterface);
 		chest = new Chest(soundManager,spriteManager.getKnight().getSprite(),itemInterface);

@@ -68,9 +68,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private static final float FONT_SCALE = 0.7f;
 	private static final int MENU_TABLE_WIDTH = 250;
 	private static final int MENU_TABLE_HEIGHT = 300;
-	private static final int DEATH_TABLE_WIDTH = 800;
-	private static final int DEATH_TABLE_HEIGHT = 600;
-	private static final float BARS_UPDATE_DELAY = 0.2f;
+	private static final float BARS_UPDATE_DELAY = 0.1f;
 	private static final float ITEM_LABEL_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_BASE_FONT_MULTIPLIER = 0.9f;
 	private static final float ITEM_LABEL_FONT_MINIMUM = 0.3f;
@@ -83,7 +81,6 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private SoundManager soundManager;
 	private SpriteManager spriteManager;
 	private Table menuTable;
-	private Table deathTable;
 	private Table tableBarsHealthSquares;
 	private Table tableBarsStaminaSquares;
 	private Table itemLabelValues;
@@ -133,16 +130,6 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		Label menuLabel = new Label(GameTexts.GAME_STAGE_MENU_LABEL.get(),skin);
 		menuTable.add(menuLabel);
 		menuTable.row();
-		// create Death Table
-		deathTable = new Table(skin);
-		deathTable.background(GameConstants.TABLE_BACKGROUND);
-		deathTable.setWidth(DEATH_TABLE_WIDTH);
-		deathTable.setHeight(DEATH_TABLE_HEIGHT);
-		deathTable.setPosition((float)Gdx.graphics.getWidth()/2, (float)Gdx.graphics.getHeight()/2, Align.center);
-		deathTable.setVisible(false);
-		Label deathLabel = new Label(GameTexts.GAME_STAGE_DEATH_LABEL.get(),skin);
-		deathTable.add(deathLabel);
-		deathTable.row();
 		// create Item Lebel Table
 		itemLabelValues = new Table(skin);
 		itemLabelValues.padBottom(TABLE_PAD_BOTTOM);
@@ -186,27 +173,6 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 				Gdx.app.exit();
 			}
 		});
-		// death Table Buttons
-		TextButton yesButton = new TextButton(GameTexts.GAME_STAGE_YES_BUTTON.get(), skin);
-		yesButton.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-				visible = false;
-				deathTable.setVisible(false);
-				worldManager.setUpdatingLevel(false);
-				stageSwitchInterface.switchToDeathStage();
-			}
-		});
-		TextButton noButton = new TextButton(GameTexts.GAME_STAGE_NO_BUTTON.get(), skin);
-		noButton.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-				visible = false;
-	    		deathTable.setVisible(false);
-	    		worldManager.setUpdatingLevel(false);
-				stageSwitchInterface.switchToMainMenu();
-			}
-		});
 		// Filling menu Table
 		menuTable.add(saveButton);
 		menuTable.row();
@@ -217,10 +183,6 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		menuTable.add(mainMenuButton);
 		menuTable.row();
 		menuTable.add(exitButton);
-		// Filling death Table
-		deathTable.add(yesButton);
-		deathTable.row();
-		deathTable.add(noButton);
 		// create other Tables
     	Table tableBarsFrame = new Table();
     	tableBarsHealthSquares = new Table();
@@ -269,13 +231,12 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
         addActor(gameValueFrames);
         addActor(gameValues);
         addActor(menuTable);
-        addActor(deathTable);
         addActor(itemLabelValues);
     	// create managers
 		soundManager = new SoundManager(soundInterface);
 		worldManager = new WorldManager();
 		spriteManager = new SpriteManager(worldManager.getCamera());
-		eventManager = new EventManager(soundManager,worldManager,spriteManager,this,modelInterface,deathTable);
+		eventManager = new EventManager(soundManager,worldManager,spriteManager,this,modelInterface);
 		// start updateBars task
 		updateBars();	
 		updateItemLabel();
@@ -306,8 +267,20 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 		timer.scheduleTask(new Task() {
 			@Override
 			public void run() {
-        		setHealthBar();
-        		setStaminaBar();
+				if (spriteManager.getKnight().isDead()) {
+					eventManager.killMonsters();
+					worldManager.setUpdatingLevel(false);
+					spriteManager.getKnight().setMovementSpeed(Knight.DEFAULT_MOVEMENT_SPEED);
+					spriteManager.getKnight().getMovementAnimationTimer().start();
+					spriteManager.getKnight().getAttackAnimationTimer().start();
+					spriteManager.getKnight().setDead(false);
+					visible = false;
+					stageSwitchInterface.switchToDeathStage();
+					timer.start();
+				} else {
+	        		setHealthBar();
+	        		setStaminaBar();
+				}
 			}
 		}, 0,BARS_UPDATE_DELAY);
     }
@@ -526,10 +499,6 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 
 	public Difficulty getDifficulty() {
 		return difficulty;
-	}
-	
-	public Table getDeathTable() {
-		return deathTable;
 	}
 
 	public Table getMenuTable() {

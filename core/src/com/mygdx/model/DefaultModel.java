@@ -123,6 +123,10 @@ public abstract class DefaultModel implements Disposable,SpriteMovementInterface
 		return movementSpeed;
 	}
 	
+	public Timer getMovementAnimationTimer() {
+		return movementAnimationTimer;
+	}
+
 	public void dispose() {
 		movementAnimationTimer.clear();
 		attackTurn.clear();

@@ -166,7 +166,7 @@ public class GameScreen implements Screen,StageSwitchInterface,SoundInterface,Ga
     			gameStage.setDifficulty(Difficulty.LEVEL1);
     		difficultyQueue = Difficulty.loadDifficulty();
     		gameStage.setGold(0);
-    		gameStage.getSpriteManager().getKnight().setDead(false);
+    		gameStage.getSpriteManager().getKnight().setDying(false);
     		gameStage.getSpriteManager().getKnight().setHealth(Knight.DEFAULT_HEALTH_VALUE);
     		gameStage.getSpriteManager().getKnight().setMaxHealth(Knight.DEFAULT_HEALTH_VALUE);
     		gameStage.getSpriteManager().getKnight().setStamina(Knight.DEFAULT_STAMINA_VALUE);
