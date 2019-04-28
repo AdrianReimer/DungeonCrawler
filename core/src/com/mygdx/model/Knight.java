@@ -56,6 +56,7 @@ public class Knight extends DefaultModel {
 	private static final float STAMINA_REGENERATION_DELAY = 1.5f;
 	
 	private boolean isAttacking;
+	private boolean isDying;
 	private boolean isDead;
 	private int attackStaminaCost = 20; // stamina cost for attacks
 	private int staminaRegeneration = 1; // stamina regeneration
@@ -70,7 +71,6 @@ public class Knight extends DefaultModel {
 	private int spawnX;
 	private int spawnY;
 	private Queue<DefaultModel> targets;
-	private Table deathTable; // visible when knight is dead
 
 	/**
 	 * Knight constructor.
@@ -78,10 +78,9 @@ public class Knight extends DefaultModel {
 	 * @param modelList | {@link List} of {@link DefaultModel} in the {@link TiledMap}.
 	 * @param deathTable | {@link Table} that gets visible when the {@link Knight} dies.
 	 */
-	public Knight(SoundManager soundManager,List<DefaultModel> modelList,Table deathTable,final ModelInterface modelInterface) {
+	public Knight(SoundManager soundManager,List<DefaultModel> modelList,final ModelInterface modelInterface) {
 		this.soundManager = soundManager;
 		this.modelList = modelList;
-		this.deathTable = deathTable;
 		// name this model the same as the Class
 		name = this.getClass().toString();
 		attackAnimationTimer = new Timer();
@@ -190,12 +189,9 @@ public class Knight extends DefaultModel {
 				if(health <= 0) {
 					if (frame >= MAX_MOVEMENT_FRAME) {
 						row = DOWN_MOVEMENT_ANIMATION_ROW;
-						// enable death "window"
-						deathTable.setVisible(true);
-						// enable Animation timers for next NewGame
-						movementAnimationTimer.start();
-						attackAnimationTimer.start();
+						sprite.setRegion(regions[row][frame]);
 						// stop death Animation
+						isDead = true;
 						deathAnimationTimer.stop();
 					}else {
 						sprite.setRegion(regions[row][frame]);
@@ -343,7 +339,7 @@ public class Knight extends DefaultModel {
 			this.health = maxHealth;
 		else if (health <= 0) {
 			this.health = 0;
-			if(!isDead) {
+			if(!isDying) {
 				// stop animations
 				movementAnimationTimer.stop();
 				attackAnimationTimer.stop();
@@ -355,7 +351,7 @@ public class Knight extends DefaultModel {
 				row = DEATH_ANIMATION_ROW;
 				frame = 0;
 				deathAnimationTimer.start();
-				isDead = true;
+				isDying = true;
 			}
 		}
 		else 
@@ -409,6 +405,18 @@ public class Knight extends DefaultModel {
 
 	public int getAttackStaminaCost() {
 		return attackStaminaCost;
+	}
+
+	public void setDying(boolean isDead) {
+		this.isDying = isDead;
+	}
+
+	public Timer getAttackAnimationTimer() {
+		return attackAnimationTimer;
+	}
+
+	public boolean isDead() {
+		return isDead;
 	}
 
 	public void setDead(boolean isDead) {
