@@ -55,9 +55,9 @@ import com.mygdx.screen.GameScreen;
 public class GameStage extends Stage implements Disposable,ItemInterface,LoadInterface{
 	
 	private static final float VALUE_SPACE_BOTTOM = 6.5f;
-	private static final float TABLE_BARS_VALUES_PAD_TOP = 11;
+	private static final float TABLE_BARS_VALUES_PAD_TOP = 7;
 	private static final float TABLE_BARS_VALUES_PAD_LEFT = 140;
-	private static final float LEVEL_VALUES_PAD_LEFT = 37;
+	private static final float LEVEL_VALUES_PAD_LEFT = 33;
 	private static final float LEVEL_VALUES_PAD_BOTTOM = 10;
 	private static final float LEVEL_VALUES_SPACE_BOTTOM = 17;
 	private static final float TABLE_PAD_BOTTOM = 350;
@@ -66,8 +66,8 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	private static final float VALUE_BARS_SIZEX = 144;
 	private static final float VALUE_BARS_SIZEY = 30;
 	private static final float FONT_SCALE = 0.7f;
-	private static final int MENU_TABLE_WIDTH = 250;
-	private static final int MENU_TABLE_HEIGHT = 300;
+	private static final int MENU_TABLE_WIDTH = 210;
+	private static final int MENU_TABLE_HEIGHT = 260;
 	private static final float BARS_UPDATE_DELAY = 0.1f;
 	private static final float ITEM_LABEL_UPDATE_DELAY = 0.2f;
 	private static final float ITEM_LABEL_BASE_FONT_MULTIPLIER = 0.9f;
@@ -223,7 +223,7 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
     	gameValues.add(levelValue).spaceBottom(LEVEL_VALUES_SPACE_BOTTOM);
     	gameValues.row();
     	gameValues.add(goldValue).spaceBottom(LEVEL_VALUES_SPACE_BOTTOM);
-    	tableBarsValues.add(name).spaceBottom(VALUE_SPACE_BOTTOM);
+    	tableBarsValues.add(name).spaceBottom(VALUE_SPACE_BOTTOM*1.5f);
     	tableBarsValues.row();
     	tableBarsValues.add(healthValue).spaceBottom(VALUE_SPACE_BOTTOM);
     	tableBarsValues.row();

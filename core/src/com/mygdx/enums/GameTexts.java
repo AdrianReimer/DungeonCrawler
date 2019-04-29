@@ -72,7 +72,7 @@ public enum GameTexts {
 	// Label
 	GAME_STAGE_DEFAULT_VALUE("?/?"),
 	GAME_STAGE_DEATH_LABEL("You Died.\n\nDo you want to be on the Highscore List?\n\n\n"),
-	GAME_STAGE_MENU_LABEL("Main Menu\n"),
+	GAME_STAGE_MENU_LABEL("Menu\n\n"),
 	// Button
 	GAME_STAGE_SAVE_BUTTON("Save"),
 	GAME_STAGE_LOAD_BUTTON("Load"),
