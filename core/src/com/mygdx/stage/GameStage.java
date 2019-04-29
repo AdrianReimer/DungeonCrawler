@@ -424,19 +424,13 @@ public class GameStage extends Stage implements Disposable,ItemInterface,LoadInt
 	public void setHealthBar() {
 		tableBarsHealthSquares.setX(-210);
 		healthValue.setText(spriteManager.getKnight().getHealth()+"/"+spriteManager.getKnight().getMaxHealth());
-		tableBarsHealthSquares.moveBy((spriteManager.getKnight().getHealth() / (spriteManager.getKnight().getMaxHealth()/100))*2.1f, 0);
-		if(tableBarsHealthSquares.getX() > 0) {
-			tableBarsHealthSquares.setX(0);
-		}
+		tableBarsHealthSquares.moveBy(((float)(spriteManager.getKnight().getHealth()) / spriteManager.getKnight().getMaxHealth())*210f, 0);
 	}
 	
 	public void setStaminaBar() {
 		tableBarsStaminaSquares.setX(-210);
 		staminaValue.setText(spriteManager.getKnight().getStamina()+"/"+spriteManager.getKnight().getMaxStamina());
-		tableBarsStaminaSquares.moveBy((spriteManager.getKnight().getStamina() / (spriteManager.getKnight().getMaxStamina()/100))*2.1f, 0);
-		if(tableBarsStaminaSquares.getX() > 0) {
-			tableBarsStaminaSquares.setX(0);
-		}
+		tableBarsStaminaSquares.moveBy(((float)(spriteManager.getKnight().getStamina()) / spriteManager.getKnight().getMaxStamina())*210f, 0);
 	}
 
 	public void setGoldValue(Label goldValue) {
